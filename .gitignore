@@ -1,0 +1,9 @@
+# LaTeX
+main.*
+!main.pdf
+!main.tex
+
+
+# Terraform
+!main.tf
+.terraform

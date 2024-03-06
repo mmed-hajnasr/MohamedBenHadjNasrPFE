@@ -1,0 +1,140 @@
+\chapter{general framework of the project}
+\section*{Introduction}
+Ensuring the smooth launch and ongoing availability of crucial applications is vital for businesses in today's digital landscape. This project outlines a strategic approach to achieve this goal by streamlining deployment processes and minimizing downtime. 
+\par 
+We will implement detailed plans for launching each application, including clear timelines, defined responsibilities, and contingency measures to address potential risks and disruptions. This will ultimately enhance the stability and performance of our key applications, contributing to overall business success.
+\section{The Host Organization}
+\paragraph[short]{ADACTIM}
+is a Managed Services Operator specializing in the Cloud, application integration and outsourcing, ERP and BI, operating internationally via a presence in Europe, the Maghreb and Africa.
+\newline
+this figure \ref{fig:logo_Adactim} present the logo of the company.
+
+\begin{figure}[htpb]
+    \centering
+    \frame{\includegraphics[width=0.5\columnwidth]{logo-adactim.png}}
+    \caption{Logo Entreprise Adactim}
+    \label{fig:logo_Adactim}
+\end{figure}
+
+\subsection*{Adactim  Mission}
+ADACTIM enables the company to benefit from technological transformations in the areas of IT infrastructure and integrated business systems allowing it to focus its energy on its core business.
+\par
+Our mission is to facilitate to businesses the access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
+\par
+Our company  focus its resources on its development and its customers. To that end the company should be well-equipped in business software and IT infrastructure and outsources appropriate operations processes.
+\section{Existing study}
+
+\noindent
+\textbf{Description of the Current Environment:}
+\\
+Our core business application currently runs on a manually provisioned Azure cloud infrastructure managed through the web portal.
+\\
+\textbf{Analysis of Existing Deployment Processes:}
+
+\begin{figure}[htpb]
+    \centering
+    \frame{\includegraphics[width=0.8\columnwidth]{existing_stratigy.png}}
+    \caption{existing strategy of the application deployment}
+    \label{fig:existing_strategy}
+\end{figure}
+
+The deployment of applications in our current setup involves several steps, including code preparation, testing, deployment scheduling, and monitoring. Each deployment requires coordination between multiple teams, including developers, quality assurance, and system administrators.
+Strengths and Weaknesses of the Current Approach:
+\\
+\textbf{Strengths:}
+\begin{itemize}
+    \item Our current deployment process follows a structured workflow, ensuring thorough testing before releasing applications into production.
+    \item Effective communication and collaborative problem-solving are facilitated by teamwork during deployments.
+\end{itemize}
+\textbf{Weaknesses:}
+\begin{itemize}
+    \item Extended outages caused by inefficient deployment practices negatively impact business continuity and revenue.
+    \item Limited automation in certain areas leads to manual errors and delays during deployments.
+\end{itemize}
+
+\section{Problematic}
+While our current deployment process prioritizes rigorous testing and cross-team collaboration, it faces significant challenges impacting both efficiency and reliability. One critical issue lies in the protracted nature of deployment timelines. This stems from the inherent complexity of coordinating and executing numerous manual testing processes. Consequently, not only are the releases of crucial applications delayed, but the potential for human error during manual interventions is also amplified
+\par
+In essence our current application deployment process faces a critical challenge: balancing the strengths of its structured workflow and collaborative approach with the need for faster, more automated deployments.
+
+\section{Needs and requirements}
+\noindent
+\textbf{Functional Needs:}
+\begin{itemize}
+    \item \textbf{Patch Deployment Automation:} Implement a system for automated deployment of patches to applications and systems.
+    \item \textbf{Version Rollback Capability:} Provide the ability to revert to a previous version of an application during deployment in case of failure or unexpected issues.
+\end{itemize}
+\textbf{Non-functional Needs:}
+\noindent
+\begin{itemize}
+    \item \textbf{Availability:} Ensure high availability of applications and services, minimizing downtime during deployments.
+    \item \textbf{Security:} Implement Web Application Firewall (WAF) and Container Application Firewall (CAF) to safeguard applications and containers from cyber threats.
+    \item \textbf{Performance:} Optimize deployment processes to maintain optimal performance levels of applications and systems.
+    \item \textbf{Cost optimization:} Minimize the costs associated with deployment processes, including recourses and infrastructure.
+\end{itemize}
+
+\section{Proposed Deployment Optimization Solution}
+In order to address the identified challenges and meet the outlined needs and requirements, we propose a solution that leverages modern technologies and methodologies.
+\begin{itemize}
+
+\item \textbf{Provisioning and Configuration Management:}
+Automate the provisioning and configuration of cloud infrastructure and application environments to ensure consistency and reliability using Infrastructure as Code (IaC) and Configuration Management tools.
+
+\item \textbf{Automating the build and testing process:}
+To minimize manual intervention and expedite development cycles, let's leverage automation across the build and testing pipeline. This not only reduces human error but also frees up valuable time for developers to focus on core tasks.
+\item \textbf{implementing a Deployment strategy:}
+Implement a deployment strategy that leverages automation to ensure seamless and efficient application deployments, minimizing downtime and errors. By applicating these pattern principles:
+\begin{itemize}
+    \item \textbf{central secrets store:}storing and monitoring the secrets that our application needs. We will use Azure Key Vault to implement this pattern. 
+    \item \textbf{Rightsize resources for each environment:} ensuring that the resources allocated to each environment are appropriate for the expected load. We can do this by implementing workspaces in terraform.   
+    \item \textbf{Delete non-production environments:} ensuring that non-production environments are deleted when they are no longer needed.
+    \item \end{itemize}
+\end{itemize}
+
+
+\section{Objectives}
+through out  this project we will adopt the scrum methodologie to achieve the following objectives:
+\begin{longtable}[c]{
+    |p{.20\textwidth}
+    |p{.55\textwidth}|
+    p{.21\textwidth}|
+}
+    \caption{the key technical objectives for the project}
+    \label{tab:myfirstlongtable}\\
+    \hline
+    
+    the Sprints
+    & Objectives
+    & Delivrables \\
+     \hline
+
+    Sprint1(2 weeks)
+    & Probision the cloud infrastructure as IaC
+    & Terraform scripts \\
+    \hline
+
+    Sprint2(2 weeks)
+    & Implement the Continuous Integration pipeline
+    & a devops workflow \\
+    \hline
+
+    Sprint3(2 weeks)
+    & Set up a deployment strategy 
+    & seamless deployment\\
+    \hline
+
+    Sprint4(1 week)
+    & Optimization and cost reduction
+    & cost reduction report\\
+    \hline
+
+    Sprint5(1 week)
+    & Write the necessary documentation
+    & Documentation\\
+    \hline
+    
+\end{longtable}
+
+\section*{Conclusion}
+This chapter presented the challenges in our current deployment processes and proposed an optimized strategy. This strategy leverages automation, recovery mechanisms, security enhancements, and performance monitoring. It aims to improve efficiency, reliability, and agility in our deployments. The next chapter will go in fu
+\vspace{0.5cm}

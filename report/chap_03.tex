@@ -1,0 +1,50 @@
+\chapter{Design gloabal infrastructur}
+
+\section*{Introduction}
+\noindent
+In this chapter we will present the global design of the infrastructure of the system. We will start by presenting the general architecture of the system, then we will present the detailed design of the different components of the system. Finally, we will present the technological choices that we have made for the realization of the system.
+
+\section{Chosen components}
+In this section we present different Databases offered by azure and how we chose the one that fits our needs.
+\subsection{Database components}
+when it comes to databases in the cloud the first choice you encounter is either pick a Purpose-Built Database or an open-source database hosted in the cloud.
+\\ We'll refer to the Azure documentation \cite{webArticle3} to guide our choice.
+\\
+\textbf{Azure SQL Database:} this service offer a fully managed relational database that scales easily to fit out needs. It also offers a high availability and security.
+\\
+\textbf{Azure MySQL Database:} this service offers easy migration to our existing MySQL applications but it doesn't offer the same level of security and high availability as Azure SQL Database.
+\paragraph*{verdict:}
+We decided to go with Azure SQL Database since I can handle the migration of our existing MySQL applications and with this we obtain the managed scalibility and security that we need.
+\subsection{Web application components}
+In this section we present the different web application components that we will use to build our system.
+And since we chose containers as the deployment method we will limit our research to the container services offered by Azure \cite{webArticle4}.
+\\
+\textbf{Azure App Service for Containers:} this service is optimized for web applications where the deployment can be made using code or containers.
+\\
+\textbf{Azure Container Instance(ACI):} this service is characterized by its simplicity and speed of deployment, but it is not suitable for an application that runs 24/7.
+\\
+\textbf{Azure Kubernetes Service(AKS):} this service is suitable for large applications that require a high level of security and scalability.
+\\
+\textbf{Azure Container Apps (ACA):} this service is recommended if you need to deploy Kubernetes-style applications without having to manage the configuration.
+\\
+\textbf{verdict:} the best choice for our application is Azure App Service for Containers since our web application is not complex. Azure Container Apps (ACA) should be considered if we decide to scale out our application.
+I also believe that Azure Container Instance should be considered for testing enveirements.
+\subsection{LoadBalancer components}
+% TODO: add the load balancer components
+\section{architectural design}
+Following the N-tier approach, here's the system's architectural overview.
+\subsubsection*{Pattern principles:}
+this is a list of the patterns recommended by Microsoft\cite{webArticle5} that we will implement in our system:
+\begin{itemize}
+    \item \textbf{the Retry pattern:} handeling transient failures when connecting to a service or network resource.
+    \item \textbf{the Circuit Breaker pattern:} handeling faults that aren't transient. The goal is to prevent an application from repeatedly invoking a service that is down and wasting CPU cycles.
+    \item \textbf{central secrets store:}storing and monitoring the secrets that our application needs. We will use Azure Key Vault to implement this pattern.
+    \item \textbf{web application firewall:} With this we can protect our web application from common web vulnerabilities.
+    \item \textbf{Rightsize resources for each environment:} ensuring that the resources allocated to each environment are appropriate for the expected load. We can do this by implementing workspaces in terraform.
+    \item \textbf{Delete non-production environments:} ensuring that non-production environments are deleted when they are no longer needed.
+    \item \textbf{Automate deployments:}  Achieve reliable and error-free deployments through automation with Azure DevOps and Terraform.
+    \item \textbf{Logging and application telemetry:} Implementing logging and application telemetry to monitor the health of the application.
+\end{itemize}
+
+\section*{Conclusion}
+The application is a web application that will be deployed in a container. The application will be connected to a database and will use a central secrets store to store the secrets that it needs. The application will also be protected by a web application firewall.

@@ -1,0 +1,8 @@
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (2,'gta',394)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (3,'fifa',1212)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (4,'nfs',3429)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (5,'halo',953)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (6,'cod',43211)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (7,'farcry2',324)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (8,'gta2',342)
+INSERT INTO Products(ProductID,ProductName,Quantity) VALUES (9,'fifa2',4327)

@@ -23,3 +23,12 @@ module "the_database" {
   vnet_id = azurerm_virtual_network.the_network.id
   private_endpoints_subnet_id = azurerm_subnet.private_endpoints_subnet.id
 }
+
+# module "storage_account" {
+#   source                 = "./modules/storage_account"
+#   location               = local.location
+#   resource_group_name    = azurerm_resource_group.the_group.name
+#   SKU                    = "Standard"
+#   vnet_id                = azurerm_virtual_network.the_network.id
+#   private_endpoints_subnet_id = azurerm_subnet.private_endpoints_subnet.id
+# }

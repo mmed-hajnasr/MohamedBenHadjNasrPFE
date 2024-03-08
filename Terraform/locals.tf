@@ -9,12 +9,14 @@ locals {
   Database_SKU = {
     "dev": "Basic",
     "QA": "Standard",
-    "prod": "Standard"
+    "prod": "Standard",
+    "default": "Basic"
   }
   Web_App_SKU = {
      "dev": "B1",
     "QA": "B2",
-    "prod": "B3"
+    "prod": "B3",
+    "default": "B1"
   }
 
   # vnet Prefixes

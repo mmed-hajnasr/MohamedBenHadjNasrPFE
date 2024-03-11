@@ -3,7 +3,7 @@ locals {
   location = "France Central"
 
   # current ip
-  current_ip = "196.179.197.137/32"
+  current_ip = "41.62.79.142/32"
 
   # different SKUs
   Database_SKU = {

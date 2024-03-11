@@ -1,4 +1,23 @@
 <!-- BEGIN_TF_DOCS -->
+## How to use
+
+the following architecture works differently under 3 workspaces, the first one is the `dev` workspace:
+
+- it has the most basic scaling.
+- you need to update the cunnent ip in the local.tf file to be able to access the web app.
+- it also has a debugger vm that has a public ip address to be able to access the web app and the database.
+
+the second workspace is the `QA` workspace:
+
+- it has a more advanced scaling similar to production.
+- it also has a debugger vm that has a public ip address.
+- it has similar restrictions as the prod workspace.
+
+the third workspace is the `prod` workspace:
+
+- it has the most advanced auto-scaling.
+- it does not have a debugger vm for security reasons.
+
 ## Requirements
 
 | Name | Version |

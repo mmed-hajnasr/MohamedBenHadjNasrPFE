@@ -19,9 +19,9 @@ this figure \ref{fig:logo_Adactim} present the logo of the company.
 \subsection*{Adactim  Mission}
 ADACTIM enables the company to benefit from technological transformations in the areas of IT infrastructure and integrated business systems allowing it to focus its energy on its core business.
 \par
-Our mission is to facilitate to businesses the access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
+Our mission is to facilitate businesses' access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
 \par
-Our company  focus its resources on its development and its customers. To that end the company should be well-equipped in business software and IT infrastructure and outsources appropriate operations processes.
+Our company focuses its resources on its development and its customers. To that end, the company should be well-equipped with business software and IT infrastructure and outsource appropriate operations processes.
 \section{Existing study}
 
 \noindent
@@ -53,9 +53,9 @@ Strengths and Weaknesses of the Current Approach:
 \end{itemize}
 
 \section{Problematic}
-While our current deployment process prioritizes rigorous testing and cross-team collaboration, it faces significant challenges impacting both efficiency and reliability. One critical issue lies in the protracted nature of deployment timelines. This stems from the inherent complexity of coordinating and executing numerous manual testing processes. Consequently, not only are the releases of crucial applications delayed, but the potential for human error during manual interventions is also amplified
+While our current deployment process prioritizes rigorous testing and cross-team collaboration, it faces significant challenges impacting both efficiency and reliability. One critical issue lies in the protracted nature of deployment timelines. This stems from the inherent complexity of coordinating and executing numerous manual testing processes. Consequently, not only are the releases of crucial applications delayed but the potential for human error during manual interventions is also amplified
 \par
-In essence our current application deployment process faces a critical challenge: balancing the strengths of its structured workflow and collaborative approach with the need for faster, more automated deployments.
+In essence, our current application deployment process faces a critical challenge: balancing the strengths of its structured workflow and collaborative approach with the need for faster, more automated deployments.
 
 \section{Needs and requirements}
 \noindent
@@ -83,17 +83,17 @@ Automate the provisioning and configuration of cloud infrastructure and applicat
 \item \textbf{Automating the build and testing process:}
 To minimize manual intervention and expedite development cycles, let's leverage automation across the build and testing pipeline. This not only reduces human error but also frees up valuable time for developers to focus on core tasks.
 \item \textbf{implementing a Deployment strategy:}
-Implement a deployment strategy that leverages automation to ensure seamless and efficient application deployments, minimizing downtime and errors. By applicating these pattern principles:
+Implement a deployment strategy that leverages automation to ensure seamless and efficient application deployments, minimizing downtime and errors. By applying these pattern principles:
 \begin{itemize}
     \item \textbf{central secrets store:}storing and monitoring the secrets that our application needs. We will use Azure Key Vault to implement this pattern. 
-    \item \textbf{Rightsize resources for each environment:} ensuring that the resources allocated to each environment are appropriate for the expected load. We can do this by implementing workspaces in terraform.   
+    \item \textbf{Rightsize resources for each environment:} ensuring that the resources allocated to each environment are appropriate for the expected load. We can do this by implementing workspaces in Terraform.   
     \item \textbf{Delete non-production environments:} ensuring that non-production environments are deleted when they are no longer needed.
     \item \end{itemize}
 \end{itemize}
 
 
 \section{Objectives}
-through out  this project we will adopt the scrum methodologie to achieve the following objectives:
+throughout  this project we will adopt the scrum methodologie to achieve the following objectives:
 \begin{longtable}[c]{
     |p{.20\textwidth}
     |p{.55\textwidth}|
@@ -136,5 +136,8 @@ through out  this project we will adopt the scrum methodologie to achieve the fo
 \end{longtable}
 
 \section*{Conclusion}
-This chapter presented the challenges in our current deployment processes and proposed an optimized strategy. This strategy leverages automation, recovery mechanisms, security enhancements, and performance monitoring. It aims to improve efficiency, reliability, and agility in our deployments. The next chapter will go in fu
-\vspace{0.5cm}
+This chapter outlined the challenges associated with our current application deployment process, which prioritizes thorough testing and collaboration but suffers from lengthy timelines and manual errors. To address these shortcomings, we proposed a new approach that leverages modern technologies and methodologies to achieve faster, more reliable deployments.
+\par
+The proposed solution emphasizes automation throughout the deployment lifecycle, encompassing infrastructure provisioning, build and testing processes, and the deployment strategy itself. This will minimize manual intervention, reduce errors, and expedite deployments. Additionally, the strategy incorporates security best practices and performance optimization techniques to ensure the applications' continued reliability and availability.
+\par
+The next chapter, "Detailed Existing Study," delves deeper into the technical underpinnings of our current environment. It provides a comprehensive analysis of the existing architecture and deployment process, laying the groundwork for the implementation of the proposed optimization solution in subsequent chapters.

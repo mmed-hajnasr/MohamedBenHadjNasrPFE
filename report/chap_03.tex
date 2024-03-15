@@ -15,7 +15,7 @@ The first sprint of this project focused on provisioning the necessary cloud res
     \item \textbf{wrote the documentation:} We wrote the documentation explaining how to modify the different variables and how to use the different workspaces(I auto-generated the documentation for the modules to ensure consistency using terraform-docs).
 \end{itemize}
 \section{The modified architecture:}
-the slight modification made to the original architecture consisted of the removal of the application gateway due to it's high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
+the slight modification made to the original architecture consisted of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
 \\ the new simplified architecture is shown in figure \ref{fig:new_arch}.
 
 \begin{figure}[htpb]
@@ -82,7 +82,7 @@ Our solution involved leveraging Terraform to explicitly set the Wire Server's s
 \end{figure}
 
 \section{Conclusion}
-This chapter detailed the successful completion of Sprint 1, focusing on provisioning the cloud infrastructure for our project. We  presented a modified architecture that removed the application gateway due to cost considerations. The new architecture leverages Terraform modules for efficient code organization and utilizes workspaces to manage different environments (dev, QA, prod) with appropriate resource configurations.
+This chapter detailed the successful completion of Sprint 1, focusing on provisioning the cloud infrastructure for our project. We presented a modified architecture that removed the application gateway due to cost considerations. The new architecture leverages Terraform modules for efficient code organization and utilizes workspaces to manage different environments (dev, QA, prod) with appropriate resource configurations.
 \par
 We encountered a challenge during this sprint related to DNS configuration, where the web application struggled to resolve the database hostname. This issue was resolved by leveraging the Azure Wire Server as the default DNS server within the virtual network configuration.
 \par

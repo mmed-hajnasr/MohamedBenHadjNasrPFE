@@ -63,6 +63,14 @@ This combined approach of modular structure and centralized variable management 
 \section{Challenges:}
 \subsection*{the problem:}
 The main challenge we faced during Sprint 1 was configuring the DNS zones to enable communication between the web application and the database. Despite successfully provisioning the necessary cloud resources, the web application encountered issues resolving the hostname of the database. This meant the application couldn't locate the database to retrieve or store data, hindering core functionality. Troubleshooting involved verifying several aspects:
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{connnectivity_problem.png}
+    \caption{connnectivity problem}
+    \label{fig:connection_problem}
+\end{figure}
+
 \begin{itemize}
     \item \textbf{DNS record configuration:} We double-checked the DNS record types (likely A record) and their values (database hostname and IP address) within the configured DNS zone. Any typos or incorrect mappings could have caused resolution issues.
     \item \textbf{Network security group (NSG) rules:} We had to verify the NSG rules to ensure the web application could communicate with the database.

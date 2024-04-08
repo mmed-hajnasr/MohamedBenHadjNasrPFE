@@ -1,9 +1,5 @@
 # LaTeX
-main.*
-!main.pdf
-!main.tex
+MohamedBenHadjnasrPFE*
+!MohamedBenHadjnasrPFE.pdf
+!MohamedBenHadjnasrPFE.tex
 
-
-# Terraform
-!main.tf
-.terraform

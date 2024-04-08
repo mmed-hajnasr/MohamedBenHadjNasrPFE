@@ -1,8 +1,6 @@
 \chapter{general framework of the project}
 \section*{Introduction}
-Ensuring the smooth launch and ongoing availability of crucial applications is vital for businesses in today's digital landscape. This project outlines a strategic approach to achieve this goal by streamlining deployment processes and minimizing downtime.
-\par
-We will implement detailed plans for launching each application, including clear timelines, defined responsibilities, and contingency measures to address potential risks and disruptions. This will ultimately enhance the stability and performance of our key applications, contributing to overall business success.
+Ensuring the smooth launch and ongoing availability of crucial applications is vital for businesses in today's digital landscape. This project outlines a strategic approach to achieve this goal by streamlining deployment processes and minimizing downtime using the DevOps methodology. We will delve deeper into the specifics of DevOps and its core principles later in this chapter. To implement this approach effectively, we will utilize a structured project methodology.
 \section{The Host Organization}
 \paragraph[short]{ADACTIM}
 is a Managed Services Operator specializing in the Cloud, application integration and outsourcing, ERP and BI, operating internationally via a presence in Europe, the Maghreb and Africa.
@@ -17,11 +15,11 @@ this figure \ref{fig:logo_Adactim} present the logo of the company.
 \end{figure}
 
 \subsection*{Adactim  Mission}
-ADACTIM enables the company to benefit from technological transformations in the areas of IT infrastructure and integrated business systems allowing it to focus its energy on its core business.
+ADACTIM can enable a company to benefit from technological transformations in the areas of IT infrastructure and integrated business systems allowing it to focus its energy on its core business.
 \par
-Our mission is to facilitate businesses' access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
+Their mission is to facilitate businesses' access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
 \par
-Our company focuses its resources on its development and its customers. To that end, the company should be well-equipped with business software and IT infrastructure and outsource appropriate operations processes.
+With this, the client company can focus its resources on its development and its customers. the company will be well-equipped with business software and IT infrastructure and outsource appropriate operations processes.
 \section{Existing study}
 
 \noindent
@@ -88,7 +86,7 @@ In order to address the identified challenges and meet the outlined needs and re
               \item \textbf{central secrets store:}storing and monitoring the secrets that our application needs. We will use Azure Key Vault to implement this pattern.
               \item \textbf{Rightsize resources for each environment:} ensuring that the resources allocated to each environment are appropriate for the expected load. We can do this by implementing workspaces in Terraform.
               \item \textbf{Delete non-production environments:} ensuring that non-production environments are deleted when they are no longer needed.
-              \item \end{itemize}
+          \end{itemize}
 \end{itemize}
 
 
@@ -123,26 +121,85 @@ throughout  this project we will adopt the scrum methodologies to achieve the fo
      & seamless deployment                           \\
     \hline
 
-    Sprint4(1 week)
+    Sprint4(2 week)
      & Optimization and cost reduction
      & cost reduction report                         \\
     \hline
-
-    Sprint5(1 week)
-     & Write the necessary documentation
-     & Documentation                                 \\
-    \hline
 \end{longtable}
 
+\section{Introduction to DevOps}
+The goal of DevOps is to increase an organization's speed when it comes to delivering applications and services. Many companies have successfully implemented DevOps to enhance their user experience including Amazon, Netflix, etc.
+DevOps streamlines the application deployment process. Following each code contribution (commit) to a designated branch, DevOps automates the necessary tasks to ensure the appropriate deployment occurs while ensuring the appropriate testing is completed.
+\subsection*{Devops lifecycle}
+DevOps lifecycle is the methodology where professional development teams come together to bring products to market more efficiently and quickly. The structure of the DevOps lifecycle consists of Plan, Code, Building, Test, Releasing, Deploying, Operating,  and Monitoring.
+
+\begin{figure}[htpb]
+    \centering
+    \frame{\includegraphics[width=0.8\columnwidth]{devop_lifecycle.png}}
+    \caption{DevOps lifecycle}
+    \label{fig:devops_lifecycle}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Plan:} gathering the opinions of end-users by professionals in this level of the DevOps lifecycle.
+    \item \textbf{Code:} This is where the development team writes the code for the project.
+    \item \textbf{Build:} This is where the development team compiles the code into a common code source.
+    \item \textbf{Test:} Various sorts of tests are done such as user acceptability testing, safety testing, speed testing, and many more.
+    \item \textbf{Release:} At this level, everything is ready to be deployed in the production environment.
+    \item \textbf{Deploy:} In this level, Infrastructure-as-Code assists in creating the operational infrastructure and subsequently publishes the build.
+    \item \textbf{Operate:} At this level, the available version is ready for users to use. Here, the department looks after the server configuration.
+    \item \textbf{Monitor:} The observation is done at this level that depends on the data which is gathered from consumer behavior.
+\end{itemize}
+
+\subsection*{Implementation of DevOps}
+There are multiple ways to implement the DevOps methodology into a project:
+\begin{itemize}
+    \item \textbf{Leveraging Cloud-Based DevOps Solutions:}Cloud providers like AWS, Azure, and GCP offer comprehensive DevOps platforms that integrate seamlessly with their respective cloud environments. These platforms provide pre-built tools for infrastructure provisioning, configuration management, CI/CD pipelines, and monitoring.
+    \item \textbf{Using DevOps Tools:}DevOps tools like Jenkins, GitLab, Ansible, and Terraform provide the necessary automation and orchestration capabilities to streamline the development and deployment process. These tools can be integrated to create a customized DevOps pipeline tailored to the project's specific requirements.
+\end{itemize}
+Given that your web project will reside in the cloud, leveraging a cloud-based DevOps solution offered by your chosen Cloud Service Provider (CSP) becomes an ideal approach. Here's why:
+\begin{itemize}
+    \item \textbf{Seamless Integration:} Cloud-based DevOps solutions integrate seamlessly with the underlying cloud infrastructure, offering pre-configured tools and services specifically designed for that environment. This translates to faster setup, easier management, and optimized performance for your cloud-hosted project.
+    \item \textbf{Scalability and Elasticity:} Cloud-based solutions are inherently scalable and elastic. They can automatically adjust resources based on your project's demands, ensuring efficient resource utilization and cost optimization.
+    \item \textbf{Managed Services:} Many cloud providers offer managed DevOps services that take care of infrastructure management, patching, and security updates. This frees up your team to focus on core development tasks.
+\end{itemize}
+
 \section{Methodology of the project}
-While some projects might seem straightforward, a defined methodology is crucial for achieving success.  This framework provides a roadmap, ensuring tasks are completed efficiently and in the right order. By following a methodology, you can avoid common pitfalls, manage your time effectively, and ultimately deliver a successful project.
+While some projects might seem straightforward, a defined methodology is crucial for achieving success.  This framework provides a roadmap, ensuring tasks are completed efficiently and in the right order. By following a methodology, we can avoid common pitfalls, manage our time effectively, and ultimately deliver a successful project.
+\subsection*{Agile vs traditional methodologies \cite{webArticle4}}
+\begin{longtable}[c]{
+    |p{.45\textwidth}
+    |p{.45\textwidth}|
+    }
+    \caption{the significant differences between traditional and agile project methodologies.}
+    \label{tab:traditional_vs_agile}                                                           \\
+    \hline
+    \textbf{ Traditional Methodology }         & \textbf{ Agile Methodology }                  \\
+    \hline
+    The Waterfall model is used.               & Iterative and incremental development.        \\
+    \hline
+    Emphasis on planning and design.           & Emphasis on flexibility and adaptability.     \\
+    \hline
+    Emphasis on deliverables and completion    & Emphasis on customer satisfaction             \\
+    \hline
+    Projects are completed in phases.          & Projects are completed in sprints.            \\
+    \hline
+    The strict change management process.      & Encourages changes and improvements.          \\
+    \hline
+    Team roles and responsibilities are fixed. & Team roles and responsibilities are flexible. \\
+    \hline
+    Limited customer involvement               & High customer involvement                     \\
+    \hline
+    Risk management is proactive               & Risk management is reactive                   \\
+    \hline
+\end{longtable}
+the choice between agile and traditional methodologies hinges on how much flexibility is needed. Agile thrives on an iterative approach. The team continuously works in short cycles, delivering features and gathering feedback to adapt and refine the project as it goes. This makes it ideal for DevOps, where requirements can evolve quickly. Traditional methods, on the other hand, emphasize upfront planning with a detailed roadmap. While this can be beneficial for projects with clear goals from the beginning, it can hinder DevOps teams who need to be adaptable and responsive to new information or feedback throughout the project lifecycle.
 \subsection*{choice of the Agile methodology}
-While seemingly designed for larger teams, Agile methodologies\cite{webArticle0} offer valuable structure even for single-person projects. Their core principles of iterative development, continuous improvement, and flexibility empower individuals to efficiently manage projects and adapt to changing requirements.
+While seemingly designed for larger teams, Agile methodologies\cite{webArticle0} offer valuable structure even for single-person projects. Their core principles of iterative development, continuous improvement, and flexibility empower individuals to efficiently manage projects.
 Let's explore some popular Agile methodologies and their strengths:
 \begin{itemize}
-    \item \textbf{scrum:} Scrum is an agile framework that helps teams structure their work into short development cycles called sprints. Scrum teams commit to shipping work at the end of each sprint and adopt practices and a team structure that helps them achieve this cadence. Scrum takes the agile principles one step further, creating structure that helps teams live the agile principles in their day-to-day work. Scrum is a well-documented agile framework that many teams can adopt without much disruption.
+    \item \textbf{scrum:} Scrum is an agile framework that helps teams structure their work into short development cycles called sprints. Scrum teams commit to shipping work at the end of each sprint and adopt practices and a team structure that helps them achieve this cadence. Scrum takes the agile principles one step further, creating a structure that helps teams live the agile principles in their day-to-day work. Scrum is a well-documented agile framework that many teams can adopt without much disruption.
     \item \textbf{Kanban:} To master Kanban, you need to be familiar with four essential Kanban metrics—lead time, cycle time, work-in-progress, and throughput. That means that implementing kanban will introduce an additional overhead to the project.
-    \item \textbf{Waterfall:} Waterfall delivery is focused on the development of products or solutions based on specifications from the client or business. Teams study the requirements and build the solution over weeks, months, or even years. Waterfall is the preferred method in regulated industries where tolerances are very narrow.
 \end{itemize}
 \subsection*{Verdict:}
 Considering the project's potential for evolving requirements and the benefits of iterative development, Scrum emerges as the optimal choice. Its focus on defined sprints, adaptability, and a structured approach to project management, even for solo developers, aligns perfectly with our project needs.

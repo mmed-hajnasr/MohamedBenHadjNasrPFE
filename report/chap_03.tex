@@ -3,19 +3,42 @@
 \section*{Introduction}
 \noindent
 The first sprint of this project focused on provisioning the necessary cloud resources and setting the connections between them. In this chapter, we will present how we customized the architecture to our needs and the challenges we faced during the process, and we will also showcase the features implemented in the terraform modules.
+\section{Sprint backlog}
+\begin{longtable}[c]{
+    |p{.85\textwidth}|
+    p{.11\textwidth}|
+    }
+    \caption{the sprint 1 backlog}
+    \label{tab:Sprint1_backlog}                                                                       \\
+    \hline
+    Define the structure and variables for the web Terraform module.                     & (2 points) \\
+    \hline
+    Define the structure and variables for the database Terraform module.                & (1 points) \\
+    \hline
+    Define the structure and variables for the storage account Terraform module.         & (1 points) \\
+    \hline
+    Develop Terraform code to provision a virtual network with subnets.                  & (4 points) \\
+    \hline
+    Implement the DNS zones for each module and set up the connections between them.     & (2 points) \\
+    \hline
+    Configure security groups for resources in each module.                              & (2 points) \\
+    \hline
+    implement the characteristics of the development environment.                        & (2 points) \\
+    \hline
+    Define environment-specific variables for the rest of the environments: QA and prod. & (1 points) \\
+    \hline
+    Deploy a simple web application to test the infrastructure.                          & (2 points) \\
+    \hline
+    write the necessary documentation on how to use the different workspaces.            & (2 points) \\
+    \hline
+    Test connectivity between the web application and the database for each environment. & (1 point)  \\
+    \hline
+    Configure the production environment for optimal performance.                        & (1 point)  \\
+    \hline
+\end{longtable}
 
-\section{Activities Completed}
-\begin{itemize}
-    \item \textbf{Azure account setup:} We created an Azure account using the student package offer.
-    \item \textbf{Azure CLI installation:} We installed the Azure CLI to manage our Azure resources.
-    \item \textbf{created the necessary modules:} For a better organization of our code, we separated the resources into modules: the web app module, the database module and the storage account module.
-    \item \textbf{established the network configurations:} We provisioned the virtual network and the DNS zones for each module and added the necessary links.
-    \item \textbf{set up the different workspaces:} We created different workspaces for each environment (dev, QA, prod) and set the default values for each environment.
-    \item \textbf{tested the architecture:} We tested the architecture by deploying the provisioned resources and deploying a simple web application.
-    \item \textbf{wrote the documentation:} We wrote the documentation explaining how to modify the different variables and how to use the different workspaces(I auto-generated the documentation for the modules to ensure consistency using terraform-docs).
-\end{itemize}
 \section{The modified architecture:}
-the slight modification made to the original architecture consisted of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
+a slight modification made to the original architecture consists of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
 \\ the new simplified architecture is shown in figure \ref{fig:new_arch}.
 
 \begin{figure}[htpb]
@@ -29,22 +52,22 @@ the slight modification made to the original architecture consisted of the remov
 the deliverables for this sprint are the terraform configuration that adapts to three different workspaces:
 \begin{itemize}
     \item \textbf{dev:} the development environment:
-    \begin{itemize}
-        \item the resources are the most basic cost to optimize the cost.
-        \item It also has a VM with a public IP inside the virtual network to access the database and the storage account.
-        \item the web app and the VM can only be accessed from the CIDN given in the variables.
-    \end{itemize}
+          \begin{itemize}
+              \item the resources are the most basic cost to optimize the cost.
+              \item It also has a VM with a public IP inside the virtual network to access the database and the storage account.
+              \item the web app and the VM can only be accessed from the CIDN given in the variables.
+          \end{itemize}
     \item \textbf{QA:} the quality assurance environment:
-    \begin{itemize}
-        \item the resources are a bit more expensive to better simulate the production environment.
-        \item It also has a VM with a public IP inside the virtual network to access the database and the storage account.
-        \item it is open to the public.
-    \end{itemize}
+          \begin{itemize}
+              \item the resources are a bit more expensive to better simulate the production environment.
+              \item It also has a VM with a public IP inside the virtual network to access the database and the storage account.
+              \item it is open to the public.
+          \end{itemize}
     \item \textbf{prod:} the production environment.
-    \begin{itemize}
-        \item the resources are the most expensive to ensure the best performance.
-        \item it is open to the public.
-    \end{itemize}
+          \begin{itemize}
+              \item the resources are the most expensive to ensure the best performance.
+              \item it is open to the public.
+          \end{itemize}
 \end{itemize}
 \subsection*{the file structure:}
 this figure \ref{fig:file_structure} shows the file structure of the terraform configuration.
@@ -80,16 +103,30 @@ By systematically examining these potential causes, we were able to identify tha
 \subsection*{the solution:}
 To address the DNS resolution issue between the web application and the database, we capitalized on a core Azure concept: \textbf{the Wire Server}. This managed DNS server, automatically created within each virtual network, plays a critical role in resolving internal DNS queries using private DNS zones. Although offered as a free service, the Wire Server isn't automatically configured as the default DNS server for the virtual network.
 
-Our solution involved leveraging Terraform to explicitly set the Wire Server's static IP address (168.63.129.16) as the default DNS server within our virtual network configuration. By making this configuration change, we ensured that the web application could effectively utilize the Wire Server to resolve the database hostname and establish the necessary communication channel. This approach eliminated the initial DNS resolution obstacle and facilitated seamless communication between the application and the database.
-
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.8\textwidth]{DNS_server.png}
+    \includegraphics[width=0.7\textwidth]{DNS_server.png}
     \caption{The DNS configuration}
     \label{fig:dns_configuration}
 \end{figure}
 
-\section{Conclusion}
+Our solution involved leveraging Terraform to explicitly set the Wire Server's static IP address (168.63.129.16) as the default DNS server within our virtual network configuration. By making this configuration change, we ensured that the web application could effectively utilize the Wire Server to resolve the database hostname and establish the necessary communication channel. This approach eliminated the initial DNS resolution obstacle and facilitated seamless communication between the application and the database.
+
+\section{Testing the connections:}
+\subsection*{the user to the application:}
+To test the connectivity between the web application and the user, I deployed a simple web application that displays a welcome message. We then accessed the web application using a web browser to verify that the application was accessible from the designated CIDR range in the development environment.
+\subsection*{the application to the database:}
+To test the connectivity between the web application and the database, I used the Azure Portal to verify that the web application could successfully communicate with the database. This involved checking the database connection status and ensuring that the web application could read and write data to the database.
+\subsection*{Integration testing:}
+To ensure that the web application and database could communicate effectively, I performed integration testing by simulating user interactions with the application. This involved submitting data through the web application and verifying that the data was correctly stored and retrieved from the database. By testing the end-to-end functionality of the application, I confirmed that the web application and database were successfully connected and operational.
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{integration_testing.png}
+    \caption{the simple web app that was used to test the infrastructure.}
+    \label{fig:testing}
+\end{figure}
+
+\section*{Conclusion}
 This chapter detailed the successful completion of Sprint 1, focusing on provisioning the cloud infrastructure for our project. We presented a modified architecture that removed the application gateway due to cost considerations. The new architecture leverages Terraform modules for efficient code organization and utilizes workspaces to manage different environments (dev, QA, prod) with appropriate resource configurations.
 \par
 We encountered a challenge during this sprint related to DNS configuration, where the web application struggled to resolve the database hostname. This issue was resolved by leveraging the Azure Wire Server as the default DNS server within the virtual network configuration.

@@ -1,0 +1,95 @@
+\chapter{The deployment stratagy}
+\section{Introduction}
+in this day and age, users expect uninterrupted access to websites around the clock.  To ensure this high level of availability, selecting the right deployment strategy is critical.  This strategy should facilitate seamless updates with minimal to no downtime for the website.  Furthermore, a robust rollback procedure should be implemented to address any unforeseen issues that may arise during deployment.  This chapter will delve into the specific deployment strategy chosen for this project, along with the rollback procedure designed to ensure a smooth recovery process in the event of failure.
+\section{Sprint backlog}
+\begin{longtable}[c]{
+    |p{.85\textwidth}|
+    p{.11\textwidth}|
+    }
+    \hline
+    research the different deployment strategies and select the most appropriate one & (3 points) \\
+    \hline
+    research the different rollback strategies and select the most appropriate one   & (2 points) \\
+    \hline
+    compare the different ways to implement the deployment strategy.                 & (1 points) \\
+    \hline
+    implement the deployment strategy in the production release pipeline             & (2 points) \\
+    \hline
+    implement the rollback strategy in the production release pipeline               & (2 points) \\
+    \hline
+    test the downtime of the deployment during an update.                            & (2 points) \\
+    \hline
+    test the rollback procedure.                                                     & (1 points) \\
+    \hline
+\end{longtable}
+\section{The different deployment strategies \cite{webArticle6}}
+A deployment strategy is a way to change or upgrade an application. The aim is to make the change without downtime in a way that the user barely notices the improvements.
+\par Now that we know what a deployment strategy is, let's dive into the different types of deployment strategies:
+
+\subsection*{Blue-green deployment:}
+This deployment strategy involves running the new version of the software alongside the old version.
+Stable or older versions of the application are always blue while newer versions are green.
+When the new version has been tested and certified to meet all the requirements, the load balancer automatically switches traffic from the older version to the newer one.
+\par \noindent \textbf{Advantages:} This strategy offers a quick update with simplicity and minimal impact on the users.
+\par \noindent \textbf{Desadvantages:} expensive since both the new and old versions must run simultaneously.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{BlueGreenDeployment5.png}
+    \caption{blue-green deployment strategy.}
+    \label{fig:blue-green-deployment-strategy}
+\end{figure}
+
+\subsection*{Canary deployment:}
+During canary deployment, the team responsible for deployment gradually redirects traffic from the older version to the new one.
+This is done in small increments, allowing the team to monitor the new version's performance and quickly roll back if necessary.
+\par \noindent \textbf{Advantages:} This strategy allows for better performance monitoring as well as faster and easier software rollbacks.
+\par \noindent \textbf{Desadvantages:} It has a slow deployment cycle and requires more time.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{canary.png}
+    \caption{canary deployment strategy.}
+    \label{fig:canary-deployment-strategy}
+\end{figure}
+
+\subsection*{Ramped/Rolling deployment:}
+The ramped deployment strategy gradually changes the older version to the new version. Unlike canary deployment, the ramped deployment strategy replaces instances of the old application version with instances of the new application version one instance at a time.
+\par \noindent \textbf{Advantages:} This strategy costs less than canary and blue-green deployment strategies since every instance not used is destroyed.
+\par \noindent \textbf{Desadvantages:} In case of an unexpected event, the rollback process takes longer than the other strategies.
+
+\subsection*{A/B testing:}
+Developers deploy the new version alongside the older version in A/B testing deployment. However, this new version is only available to a limited number of users, who are selected according to certain conditions and parameters. Location, device type, UI language, and operating system can serve as parameters for selecting these users.
+\par \noindent \textbf{Advantages:} The use of real-time statistical data can help developers make informed decisions about their software.
+\par \noindent \textbf{Desadvantages:} This strategy is complex and requires a high-end load balancer that can access the application layer.
+
+\subsection*{Verdict}
+Given our need for swift deployments and near-instant rollbacks, coupled with a cost-effective and manageable infrastructure, a blue-green deployment strategy is the ideal choice.
+
+\section{The different ways to implement the deployment strategy}
+\subsection*{Utilizing Infrastructure as Code (IaC) and Traffic Management}
+this method needs these steps to be implemented in the pipeline:
+\begin{itemize}
+    \item Create a green environment using IaC tools.
+    \item deploy the new version of the application to the green environment.
+    \item Use the traffic management resource to switch the traffic from the blue environment to the green environment.
+\end{itemize}
+\textbf{Advantages:} This method is cost-effective and more customizable(because you can choose any SKU for the requirements).
+\\
+\textbf{Desadvantages:} It takes longer during updates since we need to create an environment each time. Also, it adds the complexity of adding a load balancer to the infrastructure.
+\subsection*{Leveraging Azure App Service Deployment Slots}
+Deployment slots are live apps with their host names. App content and configuration elements can be swapped between two deployment slots, including the production slot.
+\begin{itemize}
+    \item Create a deployment slot for the new version of the application.
+    \item Deploy the new version of the application to the deployment slot.
+    \item Swap the deployment slot with the production slot.
+\end{itemize}
+\textbf{Advantages:} It is way simpler to implement than the first method, and it is faster during updates.
+\\
+\textbf{Desadvantages:} This method requires at least the Standard SKU for the App Service Plan.
+\subsection*{Verdict:}
+since this strategy is implemented in the production environment choosing the Strandard SKU is acceptable. So to avoid unnecessary complexity and to speed up the deployment process, we will use the Azure App Service Deployment Slots method.
+\section{The rollback strategy}
+\section{The monitoring stratagy}
+\section{Testing the deployment and rollback implementations}
+\section*{Conclusion}

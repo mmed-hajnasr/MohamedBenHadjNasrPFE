@@ -2,6 +2,25 @@
 
 \section*{Introduction}
 This chapter delves into the core components that establish a robust CI/CD pipeline for our project. We'll explore the setup process, delve into the selection of a branching strategy, and dissect the configuration of pipelines designed for development, staging, and production environments. Each stage within these pipelines will be meticulously explained, highlighting its function and contribution to the overall workflow.
+\section{Sprint backlog}
+\begin{longtable}[c]{
+    |p{.85\textwidth}|
+    p{.11\textwidth}|
+    }
+    \hline
+    research the different branching strategies and pick the appropriate one for this project & (2 points) \\
+    \hline
+    create the build pipeline and publish the artifacts for each environment & (3 points) \\
+    \hline
+    create the provisioning pipeline for the development environment & (3 points) \\
+    \hline
+    set up the management of the state file of the terraform in the pipeline & (2 points) \\
+    \hline
+    create the release pipelines for the staging and production environments & (3 points) \\
+    \hline
+    test the pipeline by pushing code to the different branches and checking the results & (2 points) \\
+    \hline
+\end{longtable}
 \section{Activities Completed}
 \begin{itemize}
     \item \textbf{Azure DevOps account setup:} We created an Azure DevOps account to manage our CI/CD pipeline.
@@ -136,7 +155,7 @@ the dev environment is used for testing the code by the developers when a push r
 \end{itemize}
 \section{Challenges Faced}
 \subsection*{Problem(Secure Terraform State Management in a Multi-Stage Pipeline):}
-A critical hurdle encountered during CI/CD pipeline implementation was handling Terraform state files across stages. These files, generated during infrastructure deployment,  contain crucial details about the deployed infrastructure. Terraform relies on them to determine the current state for subsequent actions and this file was required by Terraform to destroy the infrastructure. 
+A critical hurdle encountered during CI/CD pipeline implementation was handling Terraform state files across stages. These files, generated during infrastructure deployment,  contain crucial details about the deployed infrastructure. Terraform relies on them to determine the current state for subsequent actions and this file was required by Terraform to destroy the infrastructure.
 \par The initial solution involved saving the state file in an Azure storage account. However, this necessitated granting pipeline access to the storage, incurring potential costs.
 \subsection*{solution:}
 Further exploration revealed a more efficient approach: utilizing the Azure CLI to destroy deployed resources. By relying solely on the readily accessible resource group name, the Azure CLI could effectively destroy resources after approval/rejection decisions, eliminating the need for storage access and associated costs.

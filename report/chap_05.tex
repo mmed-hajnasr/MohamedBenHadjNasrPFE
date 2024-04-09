@@ -1,6 +1,6 @@
 \chapter{The deployment stratagy}
 \section{Introduction}
-in this day and age, users expect uninterrupted access to websites around the clock.  To ensure this high level of availability, selecting the right deployment strategy is critical.  This strategy should facilitate seamless updates with minimal to no downtime for the website.  Furthermore, a robust rollback procedure should be implemented to address any unforeseen issues that may arise during deployment.  This chapter will delve into the specific deployment strategy chosen for this project, along with the rollback procedure designed to ensure a smooth recovery process in the event of failure.
+in this day and age, users expect uninterrupted access to websites around the clock.  To ensure this high level of availability, selecting the right deployment strategy is critical.  This strategy should facilitate seamless updates with minimal to no downtime for the website.  Furthermore, a robust rollback procedure should be implemented to address any unforeseen issues that may arise during deployment.  This chapter will delve into the specific deployment strategy chosen for this project, along with the rollback procedure designed to ensure a smooth recovery process in the event of failure. and the monitoring tools that will be used to monitor the web application once deployed.
 \section{Sprint backlog}
 \begin{longtable}[c]{
     |p{.85\textwidth}|
@@ -19,8 +19,7 @@ in this day and age, users expect uninterrupted access to websites around the cl
     \hline
     test the downtime of the deployment during an update.                            & (2 points) \\
     \hline
-    test the rollback procedure.                                                     & (1 points) \\
-    \hline
+    test the rollback procedure.                                                     & (1 points) \\ \hline
 \end{longtable}
 \section{The different deployment strategies \cite{webArticle6}}
 A deployment strategy is a way to change or upgrade an application. The aim is to make the change without downtime in a way that the user barely notices the improvements.
@@ -89,7 +88,93 @@ Deployment slots are live apps with their host names. App content and configurat
 \textbf{Desadvantages:} This method requires at least the Standard SKU for the App Service Plan.
 \subsection*{Verdict:}
 since this strategy is implemented in the production environment choosing the Strandard SKU is acceptable. So to avoid unnecessary complexity and to speed up the deployment process, we will use the Azure App Service Deployment Slots method.
+\\
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{blue-green_implemented.png}
+    \caption{Azure App Service Deployment Slots implementation.}
+    \label{fig:deployment-slots}
+\end{figure}
+
 \section{The rollback strategy}
-\section{The monitoring stratagy}
-\section{Testing the deployment and rollback implementations}
+the deployment pipeline incorporates a robust rollback strategy to ensure minimal disruption and user satisfaction.
+\subsection*{Deployment process}
+
+\begin{itemize}
+    \item \textbf{New Version Deployment:} The new version is deployed through the pipeline.
+    \item \textbf{Automatic Rollback on Deployment Failure:} Any errors encountered during deployment will trigger an automatic rollback. This ensures the system quickly reverts to the previous stable version, minimizing downtime and potential data loss.
+    \item \textbf{User Feedback and Rollback Option:} Users have the opportunity to provide feedback on the new version. If a significant number of users express dissatisfaction, an admin can initiate a rollback.
+\end{itemize}
+
+\subsection{The rollback retention}
+\textbf{30-Day Rollback Window:}
+The pipeline, including the rollback option, remains accessible for 30 days after deployment. This window provides ample time for user feedback and admin decision-making.
+\\ \noindent
+\textbf{Automatic Rollback Rejection After 30 Days:}
+If no rollback is initiated within 30 days, the rollback stage is automatically deactivated. This prevents holding onto outdated rollback options indefinitely and we can delete the old version slots to avoid extra costs.
+\\
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{choice.png}
+    \caption{the rollback strategy implementation}
+    \label{fig:rollback-strategy}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{rollback.png}
+    \caption{seccuss rollback}
+    \label{fig:rollback-seccuss}
+\end{figure}
+
+\section{The monitoring strategy \cite{webArticle7}}
+we will use different monitoring tools offered by Azure to monitor the web application once deployed.
+\begin{itemize}
+    \item \textbf{Azure Health check:} This tool will monitor the health of the web application and notify the admin if any issues arise.
+    \item \textbf{Insights:} Application Insights monitors the availability, performance, and usage of your web applications, so you can identify and diagnose errors without waiting for a user to report them.
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.7\textwidth]{monitoring-insights.png}
+        \caption{monitoring insights set up}
+        \label{fig:monitoring-insights}
+    \end{figure}
+
+    \item \textbf{Alerts:} Alerts can be set up to notify the admin of any issues that arise with the web application. unlike Health check, this option is highly customizable.
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.7\textwidth]{alert-dashboard.png}
+        \caption{in this dashboard, you can check the status of the alerts.}
+        \label{fig:monitoring-alerts}
+    \end{figure}
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.7\textwidth]{alert-rule.png}
+        \caption{here you can set up the alerts.}
+        \label{fig:monitoring-set-up-alerts}
+    \end{figure}
+
+    \item \textbf{Metrics:} Metrics provide a detailed view of the web application's performance, including response time, request rate, and error rate.
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.7\textwidth]{metrics.png}
+        \caption{metrics dashboard}
+        \label{fig:monitoring-metrics}
+    \end{figure}
+
+    \item \textbf{Log Analytics:} Log Analytics provides a centralized location for monitoring and analyzing the web application's logs. This tool can help identify issues and troubleshoot problems quickly.
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.6\textwidth]{query-logs.png}
+        \caption{log analytics dashboard}
+        \label{fig:monitoring-log-analytics}
+    \end{figure}
+
+\end{itemize}
+
 \section*{Conclusion}
+In conclusion, this chapter has outlined the deployment strategy chosen for this project, which is a blue-green deployment strategy. This strategy was selected due to its ability to provide swift deployments with minimal downtime and near-instant rollbacks. Additionally, a rollback strategy has been implemented to ensure a smooth recovery process in the event of any unforeseen issues during deployment. The rollback strategy includes a 30-day rollback window to allow for user feedback and admin decision-making. Finally, a monitoring strategy has been established to monitor the health, performance, and usage of the web application once deployed. This monitoring strategy utilizes various Azure monitoring tools, including Application Insights, Health Checks, Alerts, Metrics, and Log Analytics. By implementing these strategies, we can ensure a smooth and successful deployment process for our website.

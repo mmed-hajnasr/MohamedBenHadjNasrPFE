@@ -17,48 +17,47 @@
 \newgeometry{bottom=25mm,left=20mm,top=15mm,right=20mm}
 \hspace{-47pt}
 \begin{minipage}[l]{0.2\columnwidth}
-\vspace{6mm}
-\includegraphics[width=1.1\columnwidth]{LogoISI}\\
+    \vspace{6mm}
+    \includegraphics[width=1.1\columnwidth]{LogoISI}\\
 \end{minipage}
 \hfill
 \begin{minipage}[l]{0.6\columnwidth}
-\centering
-\footnotesize
-\textbf{{République Tunisienne}}\\
-\vspace{1.5mm}
-\textbf{{Ministère de l'Enseignement Supérieur\\
-et de la Recherche Scientifique}}\\
-\vspace{1.5mm}
-\textbf{{Université de Tunis El Manar}}\\
-\vspace{1.5mm}
-\textbf{{Institut Supérieur d'Informatique d’El Manar}}
+    \centering
+    \footnotesize
+    \textbf{{Tunisian Republic}}\\
+    \vspace{1.5mm}
+    \textbf{{Ministry of Higher Education\\ and Scientific Research}}\\
+    \vspace{1.5mm}
+    \textbf{{University of Tunis El Manar}}\\
+    \vspace{1.5mm}
+    \textbf{{Higher Institute of Computer Science}}
 \end{minipage}
 \hfill
 \begin{minipage}[l]{0.02\columnwidth}
 \end{minipage}
 \hfill
 \begin{minipage}[l]{0.18\columnwidth}
-\vspace{6mm}
-\includegraphics[width=0.9\columnwidth]{Logo_UTM}\\
+    \vspace{6mm}
+    \includegraphics[width=0.9\columnwidth]{Logo_UTM}\\
 \end{minipage}
 \vskip1.5cm
 
 \begin{center}
-{\LARGE{\textbf{\textsc{Rapport de Projet de Fin d'\'Etudes}}}}\\
-\vskip0.5cm
-\large
+    {\LARGE{\textbf{\textsc{Graduation Project Repport}}}}\\
+    \vskip0.5cm
+    \large
 
-{\textbf{Présenté en vue de l'obtention du}}\\
-\vskip2mm
-{\textbf{\@diplomaName}}\\
-{\textbf{Spécialité : \@speciality}}\\
-{}
+    {\textbf{Presented for the purpose of obtaining}}\\
+    \vskip2mm
+    {\textbf{\@diplomaName}}\\
+    {\textbf{speciality : \@speciality}}\\
+    {}
 \end{center}
 
 \begin{center}
-\textrm{Par}\\
-\vskip0.3cm
-{\ifthenelse{\boolean{isBinomal}}
+    \textrm{By}\\
+    \vskip0.3cm
+    {\ifthenelse{\boolean{isBinomal}}
     {% IF TRUE
         \begin{center}
             \large\textbf{\@author}~~~~~ et ~~~~~
@@ -66,53 +65,53 @@ et de la Recherche Scientifique}}\\
         \end{center}
     }
     {\Large\textbf{\@author}}% FALSE
-}
-\vskip12mm
+    }
+    \vskip12mm
 
-\definecolor{isiBlue}{RGB}{31, 78, 121}
+    \definecolor{isiBlue}{RGB}{31, 78, 121}
 
-\begin{changemargin}{-9mm}{0cm}
-\begin{minipage}[l]{1.1\columnwidth}
-\begin{tcolorbox}[colframe=isiBlue,colback=white,boxrule=0pt,toprule=3pt,bottomrule=3pt,arc=0pt,top=0mm,right=0mm,left=0mm,bottom=0mm,boxsep=0.5mm]{
-    \begin{tcolorbox}[colframe=isiBlue,colback=white, boxrule=0pt,toprule=1pt,bottomrule=1pt,arc=0pt,enlarge bottom by=-0.9mm, auto outer arc]
-        \centering
-        {\huge\textbf{\@title}}
-    \end{tcolorbox}
-}
-\end{tcolorbox}
-\end{minipage}
-\end{changemargin}
+    \begin{changemargin}{-9mm}{0cm}
+        \begin{minipage}[l]{1.1\columnwidth}
+            \begin{tcolorbox}[colframe=isiBlue,colback=white,boxrule=0pt,toprule=3pt,bottomrule=3pt,arc=0pt,top=0mm,right=0mm,left=0mm,bottom=0mm,boxsep=0.5mm]{
+                    \begin{tcolorbox}[colframe=isiBlue,colback=white, boxrule=0pt,toprule=1pt,bottomrule=1pt,arc=0pt,enlarge bottom by=-0.9mm, auto outer arc]
+                        \centering
+                        {\huge\textbf{\@title}}
+                    \end{tcolorbox}
+                }
+            \end{tcolorbox}
+        \end{minipage}
+    \end{changemargin}
 
 \end{center}
 \vskip8mm%
 
 \begin{center}
-\large
-\begin{minipage}[c]{0.28\columnwidth}
-Encadrant professionnel:\\
-Encadrant académique:
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.42\columnwidth}
-\textbf{\@proFramerName}\\
-\textbf{\@academicFramerName}
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.26\columnwidth}
-\@proFramerSpeciality\\
-\@academicFramerSpeciality
-\end{minipage}
+    \large
+    \begin{minipage}[c]{0.28\columnwidth}
+        Professionnel Superviser:\\
+        Academic Supervisor:
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.42\columnwidth}
+        \textbf{\@proFramerName}\\
+        \textbf{\@academicFramerName}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.26\columnwidth}
+        \@proFramerSpeciality\\
+        \@academicFramerSpeciality
+    \end{minipage}
 \end{center}
 \vskip16mm
 
 \begin{center}
-\large
-Réalisé au sein de \@companyName\\
-\vskip0.4cm
-\begin{figure}[h]
-\centering
-{\color{isiBlue}{\fboxrule=2.5pt\fbox{\includegraphics[width=0.4\columnwidth]{logo-adactim.png}}}}
-\end{figure}
+    \large
+    Developed within \@companyName\\
+    \vskip0.4cm
+    \begin{figure}[h]
+        \centering
+        {\color{isiBlue}{\fboxrule=2.5pt\fbox{\includegraphics[width=0.4\columnwidth]{logo-adactim.png}}}}
+    \end{figure}
 \end{center}
 
 \afterpage{\blankpage}

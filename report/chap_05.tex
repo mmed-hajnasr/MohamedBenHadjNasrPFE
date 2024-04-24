@@ -34,7 +34,7 @@ When the new version has been tested and certified to meet all the requirements,
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{BlueGreenDeployment5.png}
+    \includegraphics[width=0.9\textwidth]{blue_green_deployment.png}
     \caption{blue-green deployment strategy.}
     \label{fig:blue-green-deployment-strategy}
 \end{figure}
@@ -89,6 +89,7 @@ Deployment slots are live apps with their host names. App content and configurat
 \subsection*{Verdict:}
 since this strategy is implemented in the production environment choosing the Strandard SKU is acceptable. So to avoid unnecessary complexity and to speed up the deployment process, we will use the Azure App Service Deployment Slots method.
 \\
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{blue-green_implemented.png}
@@ -96,6 +97,14 @@ since this strategy is implemented in the production environment choosing the St
     \label{fig:deployment-slots}
 \end{figure}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{full_workflow.png}
+    \caption{the full workflow of the deployment strategy.}
+    \label{fig:deployment-strategy-full-workflow}
+\end{figure}
+
+\pagebreak
 \section{The rollback strategy}
 the deployment pipeline incorporates a robust rollback strategy to ensure minimal disruption and user satisfaction.
 \subsection*{Deployment process}
@@ -151,7 +160,7 @@ we will use different monitoring tools offered by Azure to monitor the web appli
 
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.7\textwidth]{alert-rule.png}
+        \includegraphics[width=0.5\textwidth]{alert-rule.png}
         \caption{here you can set up the alerts.}
         \label{fig:monitoring-set-up-alerts}
     \end{figure}
@@ -160,7 +169,7 @@ we will use different monitoring tools offered by Azure to monitor the web appli
 
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.7\textwidth]{metrics.png}
+        \includegraphics[width=0.8\textwidth]{metrics.png}
         \caption{metrics dashboard}
         \label{fig:monitoring-metrics}
     \end{figure}
@@ -169,12 +178,12 @@ we will use different monitoring tools offered by Azure to monitor the web appli
 
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.6\textwidth]{query-logs.png}
+        \includegraphics[width=0.8\textwidth]{query-logs.png}
         \caption{log analytics dashboard}
         \label{fig:monitoring-log-analytics}
     \end{figure}
 
 \end{itemize}
-
+\pagebreak
 \section*{Conclusion}
 In conclusion, this chapter has outlined the deployment strategy chosen for this project, which is a blue-green deployment strategy. This strategy was selected due to its ability to provide swift deployments with minimal downtime and near-instant rollbacks. Additionally, a rollback strategy has been implemented to ensure a smooth recovery process in the event of any unforeseen issues during deployment. The rollback strategy includes a 30-day rollback window to allow for user feedback and admin decision-making. Finally, a monitoring strategy has been established to monitor the health, performance, and usage of the web application once deployed. This monitoring strategy utilizes various Azure monitoring tools, including Application Insights, Health Checks, Alerts, Metrics, and Log Analytics. By implementing these strategies, we can ensure a smooth and successful deployment process for our website.

@@ -39,7 +39,7 @@
 % first set to zero ... 
 \setlength{\oddsidemargin}{-1in}
 \setlength{\evensidemargin}{-1in}
-\setlength{\topmargin}{-1in}       
+\setlength{\topmargin}{-1in}
 
 % adjust these if printer is off by a bit
 \setlength{\hoffset}{0mm}
@@ -49,12 +49,12 @@
 % for readability is only 60-70, we're over so we'll be a
 % bit more generous on the evensidemargin
 
-\addtolength{\oddsidemargin}{22mm} 
+\addtolength{\oddsidemargin}{22mm}
 \addtolength{\evensidemargin}{22mm}
 \addtolength{\topmargin}{20mm}
 
 % set up some of the spacing
-\setlength{\marginparwidth}{40pt}  
+\setlength{\marginparwidth}{40pt}
 \setlength{\marginparsep}{10pt}
 \setlength{\headsep}{0.2in}
 
@@ -113,31 +113,29 @@
 % @author: Stoufa
 % Package babel-french Warning: Option `frenchb' for Babel is *deprecated*
 %\usepackage[english,arabic,frenchb]{babel}
-\usepackage[english,arabic,french]{babel}
+\usepackage[french,arabic,english]{babel}
 
 %%%%%%%%%%%
 
-\frenchbsetup{LowercaseSuperscripts=false}
 \usepackage{csquotes}
 \PassOptionsToPackage{%
-    backend=biber, %instead of bibtex
-    %backend=bibtex8,bibencoding=ascii,%
-    %language=autobib,%
-    language=auto,
-    %language=french,
-    %autocite=inline,
-    %style=numeric-comp,%
-    %style=authoryear-comp, % Author 1999, 2010
-    %style=authoryear,%
-    %style=alphabetic,%
-    style=ieee,
-    %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
-    %sorting=nty, % name, year, title
-    sorting=none, % name, year, title
-    %maxbibnames=3, % default: 3, et al.
-    %backref=true,%
-    %hyperref=true,
-    %natbib=true % natbib compatibility mode (\citep and \citet still work)
+  backend=biber, %instead of bibtex
+  %backend=bibtex8,bibencoding=ascii,%
+  %language=autobib,%
+  language=english,
+  %autocite=inline,
+  %style=numeric-comp,%
+  %style=authoryear-comp, % Author 1999, 2010
+  %style=authoryear,%
+  %style=alphabetic,%
+  style=ieee,
+  %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
+  %sorting=nty, % name, year, title
+  sorting=none, % name, year, title
+  %maxbibnames=3, % default: 3, et al.
+  %backref=true,%
+  %hyperref=true,
+  %natbib=true % natbib compatibility mode (\citep and \citet still work)
 }{biblatex}
 % @author: Stoufa
 % the option `backend=bibtex` is mandatory to avoid the “no \citation commands” error
@@ -157,15 +155,15 @@
   \DTLnewrow{list}% Create a new entry
   \DTLnewdbentry{list}{sortlabel}{#1}
   \DTLnewdbentry{list}{description}{
-      \begin{minipage}[l]{0.1\columnwidth}
-            ~\textbf{#1}
-        \end{minipage}
-        \begin{minipage}[l]{0.05\columnwidth}
-            \textbf{=}
-        \end{minipage}
-        \begin{minipage}[l]{0.85\columnwidth}
-            #2
-        \end{minipage}
+    \begin{minipage}[l]{0.1\columnwidth}
+      ~\textbf{#1}
+    \end{minipage}
+    \begin{minipage}[l]{0.05\columnwidth}
+      \textbf{=}
+    \end{minipage}
+    \begin{minipage}[l]{0.85\columnwidth}
+      #2
+    \end{minipage}
   }% Add entry description
 }
 \newenvironment{acronyms}{%
@@ -174,7 +172,7 @@
   \DTLsort{sortlabel}{list}% Sort list
   \begin{itemize}%
     \DTLforeach*{list}{\theDesc=description}{%
-      \item \theDesc}% Print each item
+    \item \theDesc}% Print each item
   \end{itemize}%
 }
 
@@ -183,7 +181,7 @@
 \definecolor{isiBlue}{RGB}{31, 78, 121}
 
 %================= configuring minitoc ==================%
-\usepackage[french]{minitoc}
+\usepackage[english]{minitoc}
 \mtcsettitle{minitoc}{Plan}
 \setcounter{minitocdepth}{1}
 \mtcsetrules{minitoc}{off}
@@ -208,29 +206,29 @@
 \def\thickhrulefill{\leavevmode \leaders \hrule height 1.2ex \hfill \kern \z@}
 
 \def\@makechapterhead#1{
-    \vspace*{30\p@}%
-    {\parindent \z@ \centering \reset@font
-        \thickhrulefill\quad 
-        \scshape\bfseries\textit{\@chapapp{}  \thechapter}  
-        \quad \thickhrulefill
-        \par\nobreak
-        \vspace*{10\p@}%
-        \interlinepenalty\@M
-        \hrule
-        \vspace*{10\p@}%
-        \Huge \bfseries #1 \par\nobreak
-        \par
-        \vspace*{10\p@}%
-        \hrule
-        \vskip 50\p@
-    }
-    \minitocsection
-    \thispagestyle{empty}%
-    \newpage
+  \vspace*{30\p@}%
+  {\parindent \z@ \centering \reset@font
+    \thickhrulefill\quad
+    \scshape\bfseries\textit{\@chapapp{}  \thechapter}
+    \quad \thickhrulefill
+    \par\nobreak
+    \vspace*{10\p@}%
+    \interlinepenalty\@M
+    \hrule
+    \vspace*{10\p@}%
+    \Huge \bfseries #1 \par\nobreak
+    \par
+    \vspace*{10\p@}%
+    \hrule
+    \vskip 50\p@
+  }
+  \minitocsection
+  \thispagestyle{empty}%
+  \newpage
 }
 \def\@makeschapterhead#1{\hbox{%
     \huge\hbox{\textbf{#1}}%
-}\par\vskip 1cm}
+  }\par\vskip 1cm}
 
 %============== Table & Figure Captions Style ==============%
 
@@ -310,41 +308,6 @@
   \renewcommand{\headrulewidth}{0pt}
   \setlength{\headheight}{0mm}
   \setlength{\footskip}{0mm}
-
-  %%% ISI Footer %%%
-  \fancyfoot[C]{
-    \centering\color{isiBlue}
-    {\ifthenelse{\boolean{wantToTypeCompanyAddress}}
-    {% IF TRUE
-        \makebox[\textwidth][c]{\rule{1.03\columnwidth}{1pt}}
-        \makebox[\textwidth][c]{
-        	\small\textLR{\@companyEmail} \footnotesize{\textAR{البريد الالكتروني :}}
-        	\footnotesize{\textLR{\@companyFax}\textAR{الفاكس : }}
-        	\footnotesize{\textLR{\@companyTel}\textAR{الهاتف : }}
-        	\footnotesize{\textAR{\@companyAddressAR}}
-        }
-        \makebox[\textwidth][c]{
-        	\small\textLR{\@companyAddressFR}
-        	~~\small\textLR{\textbf{Tél} : \@companyTel}
-        	~\small\textLR{\textbf{Fax} : \@companyFax}
-        	~\small\textLR{\textbf{Email} : \@companyEmail}
-        }
-        \vspace{-3mm}
-    }{\vspace{8mm}}}
-    \makebox[\textwidth][c]{\rule[2mm]{1.03\columnwidth}{1pt}}
-    \makebox[\textwidth][c]{
-    	\small\textLR{isi@isim.rnu.tn} \footnotesize{\textAR{البريد الالكتروني : }}
-    	~~~~~\footnotesize{\textLR{71 706 698}\textAR{الفاكس : }}
-    	~~~~~\footnotesize{\textLR{71 706 164}\textAR{الهاتف : }}
-    	~~~~~\footnotesize{\textAR{ أريانة }}\textLR{2080}\textAR{ نهج أبو الريحان الباروني }\textLR{2}
-    }
-    \makebox[\textwidth][c]{
-    	\small\textLR{2, Abou Raihane Bayrouni 2080 l'Ariana}
-    	~~~~~~~~\small\textLR{\textbf{Tél} : 71 706 164}
-    	~~~~~~~~\small\textLR{\textbf{Fax} : 71 706 698}
-    	~~~~~~~~\small\textLR{\textbf{Email} : isi@isim.rnu.tn}
-    }
-  }
 }
 
 % standard graphics package for inclusion of images and eps files into LaTeX document

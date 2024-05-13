@@ -1,166 +1,134 @@
-\chapter{Continuous Integration and Deployment}
+\chapter{The provisioning of the infrastructure}
 
 \section*{Introduction}
-This chapter delves into the core components that establish a robust CI/CD pipeline for our project. We'll explore the setup process, delve into the selection of a branching strategy, and dissect the configuration of pipelines designed for development, staging, and production environments. Each stage within these pipelines will be meticulously explained, highlighting its function and contribution to the overall workflow.
+\noindent
+The first sprint of this project focused on provisioning the necessary cloud resources and setting the connections between them. In this chapter, we will present how we customized the architecture to our needs and the challenges we faced during the process, and we will also showcase the features implemented in the terraform modules.
 \section{Sprint backlog}
 \begin{longtable}[c]{
     |p{.85\textwidth}|
     p{.11\textwidth}|
     }
+    \caption{Sprint 1 backlog}
+    \label{tab:Sprint1_backlog}                                                                       \\
     \hline
-    research the different branching strategies and pick the appropriate one for this project & (2 points) \\
+    Define the structure and variables for the web Terraform module.                     & (2 points) \\
     \hline
-    create the build pipeline and publish the artifacts for each environment & (3 points) \\
+    Define the structure and variables for the database Terraform module.                & (0 points) \\
     \hline
-    create the provisioning pipeline for the development environment & (3 points) \\
+    Define the structure and variables for the storage account Terraform module.         & (1 points) \\
     \hline
-    set up the management of the state file of the terraform in the pipeline & (2 points) \\
+    Develop Terraform code to provision a virtual network with subnets.                  & (4 points) \\
     \hline
-    create the release pipelines for the staging and production environments & (3 points) \\
+    Implement the DNS zones for each module and set up the connections between them.     & (2 points) \\
     \hline
-    test the pipeline by pushing code to the different branches and checking the results & (2 points) \\
+    Configure security groups for resources in each module.                              & (2 points) \\
+    \hline
+    implement the characteristics of the development environment.                        & (2 points) \\
+    \hline
+    Define environment-specific variables for the rest of the environments: QA and prod. & (1 points) \\
+    \hline
+    Deploy a simple web application to test the infrastructure.                          & (2 points) \\
+    \hline
+    write the necessary documentation on how to use the different workspaces.            & (2 points) \\
+    \hline
+    Test connectivity between the web application and the database for each environment. & (1 point)  \\
+    \hline
+    Configure the production environment for optimal performance.                        & (1 point)  \\
     \hline
 \end{longtable}
-\section{Activities Completed}
-\begin{itemize}
-    \item \textbf{Azure DevOps account setup:} We created an Azure DevOps account to manage our CI/CD pipeline.
-    \item \textbf{picking the right git branching strategy:} We chose the appropriate branching strategy to manage our codebase.
-    \item \textbf{creation of the build pipeline:} We created a build pipeline that builds the dotnet core application and publishes the artifacts.
-    \item \textbf{creation of the release pipelines:} We created the release pipelines that deploy the artifacts to the different environments depending on the branch.
-    \item \textbf{testing the pipeline:} We tested the pipeline by pushing code to the different branches and checking the results.
-\end{itemize}
 
-\section{Version Control strategy}
-\subsection*{the different branching strategies\cite{webArticle3}:}
-\textbf{trunc based development:} In this strategy, requires no branches but instead, developers integrate their changes into a shared trunk at least once a day. This shared trunk should be ready for release anytime.
-\begin{itemize}
-    \item \textbf{Advantages:} Have better visibility over what changes other developers are making as commits are made directly into the trunk without the need for branches.
-    \item \textbf{Desadvantages:} It can be difficult to monitor the quality of the codebase as there are no branches to isolate changes. This approach can be daunting for junior developers as they are interacting directly with the shared trunk.
-\end{itemize}
-\par
-\textbf{github flow:} In this strategy, there is only one branch called the main branch. Developers create feature branches from the main branch, work on their features, and then create a pull request to merge their changes back into the main branch.
-\begin{itemize}
-    \item \textbf{Advantages:} This strategy is particularly suited for small teams and web applications and it is ideal when you need to maintain a single production version.
-    \item \textbf{Desadvantages:} The lack of development branches makes this strategy more susceptible to bugs and so can lead to an unstable production code if branches are not properly tested before merging with the master-release preparation and bug fixes happen in this branch.
-\end{itemize}
-\par
-\textbf{gitflow:} In this strategy, there are two main branches: the master branch and the develop branch. The master branch contains the production-ready code while the develop branch contains the latest code that is ready for release.
-\begin{itemize}
-    \item \textbf{Advantages:} Perhaps the most obvious benefit of this model is that it allows for parallel development to protect the production code so the main branch remains stable for release while developers work on separate branches.
-    \item \textbf{Desadvantages:} Due to GitFlow's complexity, it could slow down the development process and release cycle. In that sense, GitFlow is not an efficient approach for teams wanting to implement continuous integration and continuous delivery.
-\end{itemize}
-\textbf{gitlab flow:} is a simpler alternative to GitFlow that combines feature-driven development and feature branching with issue tracking. GitLab Flow is great when you want to maintain multiple environments and when you prefer to have a staging environment separate from the production environment.
-\begin{itemize}
-    \item \textbf{Advantages:} It promotes teamwork and emphasizes code quality with a lean approach, encouraging practices like unit testing and CI/CD.
-    \item \textbf{Desadvantages:} With more frequent integration, there's a higher chance of merge conflicts, especially in larger teams.
-\end{itemize}
-\begin{longtable}[c]{
-    |p{.50\textwidth}
-    |p{.10\textwidth}|
-    p{.30\textwidth}|
-    }
-    \caption*{the different situations where each branching strategy is suitable}
-    \label{tab:gitStratagyTable}
-    \\ \hline
+\section{The modified architecture:}
+a slight modification made to the original architecture consists of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
+\\ the new simplified architecture is shown in figure \ref{fig:new_arch}.
 
-    Product type and its release method                                                                                            & Team size & Applicable branching strategy                \\ \hline
-    All                                                                                                                            & Small     & Trunk based development                      \\ \hline
-    Products that support continuous deployment and release, such as SaaS products                                                 & Middle    & GitHub-Flow and TBD                          \\ \hline
-    Products with a definite release window and a periodic version release cadence, such as iOS apps                               & Middle    & Git-Flow and GitLab-Flow with release branch \\ \hline
-    Products that are demanding for product quality and support continuous deployment and release, such as basic platform products & Middle    & GitLab-Flow                                  \\ \hline
-    Products that are demanding product quality and have a long maintenance cycle for released versions                            & Large     & Git-Flow                                     \\ \hline
-\end{longtable}
-\par
-\textbf{Verdict:} Considering the table's comparison and the advantages and disadvantages listed, GitLab Flow emerges as the optimal choice for our project's workflow since we can leverage its strengths to establish a smooth, efficient, and quality-focused development process for our continuous deployment pipeline.
-\subsection*{description of the GitLab flow strategy:}
-the GitLab flow strategy consists of 3 main branches: the main branch(develop), the staging branch(pre-prod), and the production branch(prod).
-
-\begin{figure}[htbp]
+\begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{gitLab.png}
-    \caption{gitlab flow strategy}
-    \label{fig:gitlab}
+    \includegraphics[width=0.8\textwidth]{web_app_with_private_access_to_database_and_stroage_account.png}
+    \caption{The new architecture}
+    \label{fig:new_arch}
 \end{figure}
 
-\subsection*{Main branches:}
+\section{Delivrables:}
+the deliverables for this sprint are the terraform configuration that adapts to three different workspaces:
 \begin{itemize}
-    \item \textbf{the main branch(develop):} This branch is the default branch and contains the latest code that is ready for release. Developers create feature branches from the main branch, work on their features, and then create a pull request to merge their changes back into the main branch.
-    \item \textbf{the staging branch(pre-prod):} This branch is used for testing the code by the QA team before it is deployed to the production environment. The staging branch is created from the main branch and is used to test the code in a production-like environment.
-    \item \textbf{the production branch(prod):} This branch contains the production-ready code that is deployed to the production environment. The production branch is created from the staging branch and is used to deploy the code to the production environment.
-\end{itemize}
-\subsection*{secondary branches:}
-these branches are short-lived and are used to develop new features or fix bugs.
-\begin{itemize}
-    \item \textbf{feature branches:} These branches are created from the main branch and are used to develop new features. Once the feature is complete, a pull request is created to merge the changes back into the main branch.
-    \item \textbf{Hotfix branches:} These branches are created from the production branch and are used to fix critical bugs in the production code. Once the bug is fixed, a pull request is created to merge the changes back into the production branch.
-\end{itemize}
-
-\section{The CI/CD pipelines}
-
-\subsection*{the build pipeline:}
-here's a detailed breakdown of the build pipeline for the .NET Core application:
-\begin{itemize}
-    \item \textbf{Fetch the code:} The pipeline starts by fetching the latest code from your GitHub repository or a pull request. This is done using a service connection that links our Azure DevOps account to the GitHub repository.
-    \item \textbf{Build the code:} This stage involves two main tasks:
+    \item \textbf{dev:} the development environment:
           \begin{itemize}
-              \item \textbf{Restore dependencies:} The pipeline installs NuGet and restores the packages required for the project. Nuget is the package manager responsible for managing the various dependencies of this application.
-              \item \textbf{Build the project:} The pipeline builds the .NET Core project using the dotnet build command.
+              \item the resources are the most basic cost to optimize the cost.
+              \item It also has a VM with a public IP inside the virtual network to access the database and the storage account.
+              \item the web app and the VM can only be accessed from the CIDN given in the variables.
           \end{itemize}
-    \item \textbf{Run tests:} This stage involves running the unit tests and the integration tests to ensure the application functions as expected.
-    \item \textbf{Publish artifacts:} The pipeline publishes the build artifacts to the Azure DevOps server. These artifacts are to be used by the release pipeline to deploy the application to the different environments.
+    \item \textbf{QA:} the quality assurance environment:
+          \begin{itemize}
+              \item the resources are a bit more expensive to better simulate the production environment.
+              \item It also has a VM with a public IP inside the virtual network to access the database and the storage account.
+              \item it is open to the public.
+          \end{itemize}
+    \item \textbf{prod:} the production environment.
+          \begin{itemize}
+              \item the resources are the most expensive to ensure the best performance.
+              \item it is open to the public.
+          \end{itemize}
 \end{itemize}
-\subsection*{the release pipeline:}
-the release pipeline is the combination of the provisioning and deployment process. Here's a detailed breakdown of the different pipelines for the different environments:
-\subsubsection*{the development environment:}
-the dev environment is used for testing the code by the developers when a push request is made into the main branch and approval from another developer is required. it consists of the following stages:
-\begin{itemize}
-    \item \textbf{Fetch the artifacts:} The pipeline starts by fetching the latest artifact that contains the build of the application and the artifact that contains the terraform source code.
-    \item \textbf{Deploy the infrastructure:} The pipeline deploys the infrastructure using the terraform source code using the service connection to the Azure subscription.
-    \item \textbf{assign the variables:} The pipeline assigns the variables required for the deployment of the application like the name of the web app that is generated during deployment.
-    \item \textbf{deploy the application:} The pipeline deploys the application to the web app using the artifact that contains the build of the application.
-    \item \textbf{the approval stage:} After the pipeline notifies the responsible developer it waits for his approval to merge the code into the main branch after he is done reviewing the changes using the deployed application.
-    \item \textbf{the destruction of the infrastructure:} This stage is used to destroy the infrastructure after the request has been approved or rejected.
-\end{itemize}
+\subsection*{the file structure:}
+this figure \ref{fig:file_structure} shows the file structure of the terraform configuration.
 
-\begin{figure}[htbp]
+\begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.9\textwidth]{dev_pipeline.png}
-    \caption{development pipeline}
-    \label{fig:devPipeline}
+    \includegraphics[width=0.3\textwidth]{file_structure.png}
+    \caption{The file structure}
+    \label{fig:file_structure}
+\end{figure}
+To promote code reusability, maintainability, and clarity, we adopted a modular approach for our Terraform configuration. This involved structuring the code into distinct modules, each encapsulating a specific aspect of the infrastructure (e.g., web app, database, storage account). This approach allows us to manage and update each module independently, and to reuse them across different environments.
+\par
+Furthermore, to ensure consistency and streamline configuration changes, we grouped frequently used variables like SKU names, VNet prefixes, and subnet prefixes into a dedicated local.tf file.
+\par
+This combined approach of modular structure and centralized variable management promotes efficient and well-organized Terraform configuration, fostering long-term project maintainability and scalability.
+\section{Challenges:}
+\subsection*{the problem:}
+The main challenge we faced during Sprint 1 was configuring the DNS zones to enable communication between the web application and the database. Despite successfully provisioning the necessary cloud resources, the web application encountered issues resolving the hostname of the database. This meant the application couldn't locate the database to retrieve or store data, hindering core functionality. Troubleshooting involved verifying several aspects:
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{connnectivity_problem.png}
+    \caption{connnectivity problem}
+    \label{fig:connection_problem}
 \end{figure}
 
-\textbf{the benefits of this pipeline are:}
 \begin{itemize}
-    \item \textbf{fast feedback:} The pipeline provides fast feedback to the developers on the quality of the code.
-    \item \textbf{cost savings:} The pipeline saves costs by destroying the infrastructure after the request has been approved or rejected. so that the infrastructure doesn't keep running when not needed.
-    \item \textbf{multiple deployments:} The pipeline allows for multiple deployments in different infrastructures at once due to the randomly generated names. giving us the ability to test multiple pull requests at once.
+    \item \textbf{DNS record configuration:} We double-checked the DNS record types (likely A record) and their values (database hostname and IP address) within the configured DNS zone. Any typos or incorrect mappings could have caused resolution issues.
+    \item \textbf{Network security group (NSG) rules:} We had to verify the NSG rules to ensure the web application could communicate with the database.
+    \item \textbf{verify connections:} We had to verify that the database was accessible from the web application. and that the web could access the DNS server.
 \end{itemize}
-\subsubsection*{the staging and the deployment pipelines:}
-\noindent These pipelines share similar stages but differ in their triggers:
-\begin{itemize}
-    \item \textbf{Staging Pipeline:} Triggered by a push or merge to the pre-production (pre-prod) branch. This environment mirrors production as closely as possible for testing purposes.
-    \item \textbf{Deployment Pipeline:} Triggered by a push or merge to the production (prod) branch. This pipeline deploys the application to the live environment used by end users.
-\end{itemize}
-\noindent The stages within these pipelines typically involve:
-\begin{itemize}
-    \item \textbf{Fetch the artifacts:} Similar to the development pipeline, this stage retrieves the latest Terraform configuration files and the recently built application artifact.
-    \item \textbf{Deploy the infrastructure:} In the staging and production environments, the infrastructure is already deployed using the terraform files. so we directly deploy the application to the web app.
-    \item \textbf{Notify Deployment Status:} Once the deployment is complete, the pipeline automatically notifies the designated manager (or team) about the success or failure of the process.
-\end{itemize}
-\textbf{the benefits of these pipelines are:}
-\begin{itemize}
-    \item \textbf{Increased Efficiency:} Automating deployments frees up valuable developer and operations time. They can focus on core activities like building new features, improving code quality, and resolving critical issues.
-    \item \textbf{Reduced Risk of Errors:} Manual deployments are prone to human error. Staging and deployment pipelines automate the entire process, minimizing the chance of mistakes that could lead to application downtime or malfunctions.
-    \item \textbf{Faster Release Cycles:} By automating the deployment process, teams can push new features and bug fixes to staging and production environments much quicker. This eliminates the time spent on manual tasks and allows for more frequent releases, keeping your software up-to-date and competitive.
-\end{itemize}
-\section{Challenges Faced}
-\subsection*{Problem(Secure Terraform State Management in a Multi-Stage Pipeline):}
-A critical hurdle encountered during CI/CD pipeline implementation was handling Terraform state files across stages. These files, generated during infrastructure deployment,  contain crucial details about the deployed infrastructure. Terraform relies on them to determine the current state for subsequent actions and this file was required by Terraform to destroy the infrastructure.
-\par The initial solution involved saving the state file in an Azure storage account. However, this necessitated granting pipeline access to the storage, incurring potential costs.
-\subsection*{solution:}
-Further exploration revealed a more efficient approach: utilizing the Azure CLI to destroy deployed resources. By relying solely on the readily accessible resource group name, the Azure CLI could effectively destroy resources after approval/rejection decisions, eliminating the need for storage access and associated costs.
+By systematically examining these potential causes, we were able to identify that the web app did not have access to the DNS server provided by Azure. This experience highlights the importance of careful configuration and understanding of how DNS plays a crucial role in enabling communication between different components within a cloud infrastructure.
+\subsection*{the solution:}
+To address the DNS resolution issue between the web application and the database, we capitalized on a core Azure concept: \textbf{the Wire Server}. This managed DNS server, automatically created within each virtual network, plays a critical role in resolving internal DNS queries using private DNS zones. Although offered as a free service, the Wire Server isn't automatically configured as the default DNS server for the virtual network.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{DNS_server.png}
+    \caption{The DNS configuration}
+    \label{fig:dns_configuration}
+\end{figure}
+
+Our solution involved leveraging Terraform to explicitly set the Wire Server's static IP address (168.63.129.16) as the default DNS server within our virtual network configuration. By making this configuration change, we ensured that the web application could effectively utilize the Wire Server to resolve the database hostname and establish the necessary communication channel. This approach eliminated the initial DNS resolution obstacle and facilitated seamless communication between the application and the database.
+
+\section{Testing the connections:}
+\subsection*{the user to the application:}
+To test the connectivity between the web application and the user, I deployed a simple web application that displays a welcome message. We then accessed the web application using a web browser to verify that the application was accessible from the designated CIDR range in the development environment.
+\subsection*{the application to the database:}
+To test the connectivity between the web application and the database, I used the Azure Portal to verify that the web application could successfully communicate with the database. This involved checking the database connection status and ensuring that the web application could read and write data to the database.
+\subsection*{Integration testing:}
+To ensure that the web application and database could communicate effectively, I performed integration testing by simulating user interactions with the application. This involved submitting data through the web application and verifying that the data was correctly stored and retrieved from the database. By testing the end-to-end functionality of the application, I confirmed that the web application and database were successfully connected and operational.
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{integration_testing.png}
+    \caption{the simple web app that was used to test the infrastructure.}
+    \label{fig:testing}
+\end{figure}
+
 \section*{Conclusion}
-The meticulously crafted CI/CD pipeline significantly enhances the development process by automating deployments and infrastructure management. This automation not only minimizes manual work and the potential for errors but also facilitates faster deployments and cost savings through efficient infrastructure utilization.
-Our selection of the GitLab Flow branching strategy fosters collaboration and ensures code quality throughout the development lifecycle.
+This chapter detailed the successful completion of Sprint 1, focusing on provisioning the cloud infrastructure for our project. We presented a modified architecture that removed the application gateway due to cost considerations. The new architecture leverages Terraform modules for efficient code organization and utilizes workspaces to manage different environments (dev, QA, prod) with appropriate resource configurations.
 \par
-In conclusion, our new CI/CD pipeline empowers our team to deliver features and updates with remarkable efficiency while maintaining an unwavering commitment to quality. As we move forward, the next chapter will explore the various deployment strategies available and delve into the process of selecting and implementing the most suitable option for our specific project requirements.
+We encountered a challenge during this sprint related to DNS configuration, where the web application struggled to resolve the database hostname. This issue was resolved by leveraging the Azure Wire Server as the default DNS server within the virtual network configuration.
+\par
+By successfully provisioning the infrastructure and addressing the DNS resolution challenge, Sprint 1 laid the foundation for future sprints to focus on building and deploying the web application and its functionalities.

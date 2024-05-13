@@ -1,6 +1,6 @@
 \chapter{general framework of the project}
 \section*{Introduction}
-Ensuring the smooth launch and ongoing availability of crucial applications is vital for businesses in today's digital landscape. This project outlines a strategic approach to achieve this goal by streamlining deployment processes and minimizing downtime using the DevOps methodology. We will delve deeper into the specifics of DevOps and its core principles later in this chapter. To implement this approach effectively, we will utilize a structured project methodology.
+In this chapter we will present a global overview of the project, starting with the presentation of the host organization, followed by the problematic that was the reason behind the project, and finally we will into the methodology that was adopted to achieve this project objectives.
 \section{The Host Organization}
 \paragraph[short]{ADACTIM}
 is a Managed Services Operator specializing in the Cloud, application integration and outsourcing, ERP and BI, operating internationally via a presence in Europe, the Maghreb and Africa.
@@ -20,12 +20,13 @@ ADACTIM can enable a company to benefit from technological transformations in th
 Their mission is to facilitate businesses' access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
 \par
 With this, the client company can focus its resources on its development and its customers. the company will be well-equipped with business software and IT infrastructure and outsource appropriate operations processes.
-\section{Existing study}
+\section{Problematic}
 
+\subsection{Existing study}
 \noindent
 \textbf{Description of the Current Environment:}
 \\
-Our core business application currently runs on a manually provisioned Azure cloud infrastructure managed through the web portal.
+Some applications that are managed by ADACTIM currently runs on a manually provisioned Azure cloud infrastructure managed through the web portal. Which means the actions to these infrastructures are done through a graphical interface provided by azure.
 \\
 \textbf{Analysis of Existing Deployment Processes:}
 
@@ -49,119 +50,28 @@ Strengths and Weaknesses of the Current Approach:
     \item Extended outages caused by inefficient deployment practices negatively impact business continuity and revenue.
     \item Limited automation in certain areas leads to manual errors and delays during deployments.
 \end{itemize}
-
-\section{Problematic}
+\noindent
+\textbf{Conclusion:}
+\par
 While our current deployment process prioritizes rigorous testing and cross-team collaboration, it faces significant challenges impacting both efficiency and reliability. One critical issue lies in the protracted nature of deployment timelines. This stems from the inherent complexity of coordinating and executing numerous manual testing processes. Consequently, not only are the releases of crucial applications delayed but the potential for human error during manual interventions is also amplified
 \par
 In essence, our current application deployment process faces a critical challenge: balancing the strengths of its structured workflow and collaborative approach with the need for faster, more automated deployments.
 
-\section{Needs and requirements}
-\noindent
-\textbf{Functional Needs:}
-\begin{itemize}
-    \item \textbf{Patch Deployment Automation:} Implement a system for automated deployment of patches to applications and systems.
-    \item \textbf{Version Rollback Capability:} Provide the ability to revert to a previous version of an application during deployment in case of failure or unexpected issues.
-\end{itemize}
-\textbf{Non-functional Needs:}
-\noindent
-\begin{itemize}
-    \item \textbf{Availability:} Ensure high availability of applications and services, minimizing downtime during deployments.
-    \item \textbf{Security:} Implement Web Application Firewall (WAF) and Container Application Firewall (CAF) to safeguard applications and containers from cyber threats.
-    \item \textbf{Performance:} Optimize deployment processes to maintain optimal performance levels of applications and systems.
-    \item \textbf{Cost optimization:} Minimize the costs associated with deployment processes, including recourses and infrastructure.
-\end{itemize}
-
-\section{Proposed Deployment Optimization Solution}
-In order to address the identified challenges and meet the outlined needs and requirements, we propose a solution that leverages modern technologies and methodologies.
+\subsection{Proposed Deployment Optimization Solution}
+In order to address the identified challenges, we propose a solution that leverages modern technologies and methodologies like Devops.
 \begin{itemize}
 
     \item \textbf{Provisioning and Configuration Management:}
           Automate the provisioning and configuration of cloud infrastructure and application environments to ensure consistency and reliability using Infrastructure as Code (IaC) and Configuration Management tools.
 
     \item \textbf{Automating the build and testing process:}
-          To minimize manual intervention and expedite development cycles, let's leverage automation across the build and testing pipeline. This not only reduces human error but also frees up valuable time for developers to focus on core tasks.
+          minimize manual intervention and expedite development cycles by leveraging automation across the build and testing pipeline. This not only reduces human error but also frees up valuable time for developers to focus on core tasks.
     \item \textbf{implementing a Deployment strategy:}
           Implement a deployment strategy that leverages automation to ensure seamless and efficient application deployments, minimizing downtime and errors. By applying these pattern principles:
           \begin{itemize}
-              \item \textbf{central secrets store:}storing and monitoring the secrets that our application needs. We will use Azure Key Vault to implement this pattern.
               \item \textbf{Rightsize resources for each environment:} ensuring that the resources allocated to each environment are appropriate for the expected load. We can do this by implementing workspaces in Terraform.
               \item \textbf{Delete non-production environments:} ensuring that non-production environments are deleted when they are no longer needed.
           \end{itemize}
-\end{itemize}
-
-
-\section{Objectives}
-throughout  this project we will adopt the scrum methodologies to achieve the following objectives:
-\begin{longtable}[c]{
-    |p{.20\textwidth}
-    |p{.55\textwidth}|
-    p{.21\textwidth}|
-    }
-    \caption{the key technical objectives for the project}
-    \label{tab:objectivesTable}                      \\
-    \hline
-
-    the Sprints
-     & Objectives
-     & Delivrables                                   \\
-    \hline
-
-    Sprint1(2 weeks)
-     & Probision the cloud infrastructure as IaC
-     & Terraform scripts                             \\
-    \hline
-
-    Sprint2(2 weeks)
-     & Implement the Continuous Integration pipeline
-     & a DevOps workflow                             \\
-    \hline
-
-    Sprint3(2 weeks)
-     & Set up a deployment strategy
-     & seamless deployment                           \\
-    \hline
-
-    Sprint4(2 week)
-     & Optimization and cost reduction
-     & cost reduction report                         \\
-    \hline
-\end{longtable}
-
-\section{Introduction to DevOps}
-The goal of DevOps is to increase an organization's speed when it comes to delivering applications and services. Many companies have successfully implemented DevOps to enhance their user experience including Amazon, Netflix, etc.
-DevOps streamlines the application deployment process. Following each code contribution (commit) to a designated branch, DevOps automates the necessary tasks to ensure the appropriate deployment occurs while ensuring the appropriate testing is completed.
-\subsection*{Devops lifecycle}
-DevOps lifecycle is the methodology where professional development teams come together to bring products to market more efficiently and quickly. The structure of the DevOps lifecycle consists of Plan, Code, Building, Test, Releasing, Deploying, Operating,  and Monitoring.
-
-\begin{figure}[htpb]
-    \centering
-    \frame{\includegraphics[width=0.8\columnwidth]{devop_lifecycle.png}}
-    \caption{DevOps lifecycle}
-    \label{fig:devops_lifecycle}
-\end{figure}
-
-\begin{itemize}
-    \item \textbf{Plan:} gathering the opinions of end-users by professionals in this level of the DevOps lifecycle.
-    \item \textbf{Code:} This is where the development team writes the code for the project.
-    \item \textbf{Build:} This is where the development team compiles the code into a common code source.
-    \item \textbf{Test:} Various sorts of tests are done such as user acceptability testing, safety testing, speed testing, and many more.
-    \item \textbf{Release:} At this level, everything is ready to be deployed in the production environment.
-    \item \textbf{Deploy:} In this level, Infrastructure-as-Code assists in creating the operational infrastructure and subsequently publishes the build.
-    \item \textbf{Operate:} At this level, the available version is ready for users to use. Here, the department looks after the server configuration.
-    \item \textbf{Monitor:} The observation is done at this level that depends on the data which is gathered from consumer behavior.
-\end{itemize}
-
-\subsection*{Implementation of DevOps}
-There are multiple ways to implement the DevOps methodology into a project:
-\begin{itemize}
-    \item \textbf{Leveraging Cloud-Based DevOps Solutions:}Cloud providers like AWS, Azure, and GCP offer comprehensive DevOps platforms that integrate seamlessly with their respective cloud environments. These platforms provide pre-built tools for infrastructure provisioning, configuration management, CI/CD pipelines, and monitoring.
-    \item \textbf{Using DevOps Tools:}DevOps tools like Jenkins, GitLab, Ansible, and Terraform provide the necessary automation and orchestration capabilities to streamline the development and deployment process. These tools can be integrated to create a customized DevOps pipeline tailored to the project's specific requirements.
-\end{itemize}
-Given that your web project will reside in the cloud, leveraging a cloud-based DevOps solution offered by your chosen Cloud Service Provider (CSP) becomes an ideal approach. Here's why:
-\begin{itemize}
-    \item \textbf{Seamless Integration:} Cloud-based DevOps solutions integrate seamlessly with the underlying cloud infrastructure, offering pre-configured tools and services specifically designed for that environment. This translates to faster setup, easier management, and optimized performance for your cloud-hosted project.
-    \item \textbf{Scalability and Elasticity:} Cloud-based solutions are inherently scalable and elastic. They can automatically adjust resources based on your project's demands, ensuring efficient resource utilization and cost optimization.
-    \item \textbf{Managed Services:} Many cloud providers offer managed DevOps services that take care of infrastructure management, patching, and security updates. This frees up your team to focus on core development tasks.
 \end{itemize}
 
 \section{Methodology of the project}
@@ -204,9 +114,36 @@ Let's explore some popular Agile methodologies and their strengths:
 \subsection*{Verdict:}
 Considering the project's potential for evolving requirements and the benefits of iterative development, Scrum emerges as the optimal choice. Its focus on defined sprints, adaptability, and a structured approach to project management, even for solo developers, aligns perfectly with our project needs.
 
+\subsection*{the implementation of Scrum process}
+This overview outlines how we will be implementing the Scrum process to manage our project:
+\begin{itemize}
+    \item \textbf{Scrum events:} \begin{itemize}
+              \item \textbf{Retrospective (Weekly):} Held with the company supervisor to review the previous sprint, identify areas for improvement, and adapt the process for the upcoming sprint. This meeting can take place in person at the supervisor's office or virtually using Microsoft Teams.
+              \item \textbf{Sprint Planning (Before Each Sprint):} Select items from the backlog and commit to delivering them during the upcoming sprint (a short iteration typically lasting 2 weeks).
+          \end{itemize}
+    \item \textbf{Scrum implementation:} \begin{itemize}
+              \item \textbf{Product Backlog:} I will maintain a product backlog that outlines all the features and functionalities desired in the final product.
+              \item \textbf{Sprint Planning:} Before each sprint, a sprint planning meeting is held by the supervisor and me to select a set of items from the top of the product backlog that we commit to delivering during the upcoming sprint. This selection is called the sprint backlog.
+              \item \textbf{Sprint Execution:} I deliver the items in the sprint backlog.
+              \item \textbf{Sprint Retrospective:} At the end of each sprint, I will hold a sprint retrospective meeting with the company supervisor. This meeting will focus on reviewing what areas need improvement in the upcoming sprint.
+          \end{itemize}
+
+\end{itemize}
+
+\begin{figure}[htpb]
+    \centering
+    \frame{\includegraphics[width=0.8\columnwidth]{scrum-framework-9.29.23.png}}
+    \caption{Scrum process}
+    \label{fig:scrum_process}
+\end{figure}
+
+By following the Scrum process and maintaining open communication, we can ensure a successful project that delivers value iteratively while continuously adapting to feedback and changes.
+
 \section*{Conclusion}
-This chapter outlined the challenges associated with our current application deployment process, which prioritizes thorough testing and collaboration but suffers from lengthy timelines and manual errors. To address these shortcomings, we proposed a new approach that leverages modern technologies and methodologies to achieve faster, more reliable deployments.
+This chapter outlined the challenges associated with our current applications deployment process, which prioritizes thorough testing and collaboration but suffers from lengthy timelines and manual errors. To address these shortcomings, we proposed a new approach that leverages modern technologies and methodologies to achieve faster, more reliable deployments.
 \par
 The proposed solution emphasizes automation throughout the deployment lifecycle, encompassing infrastructure provisioning, build and testing processes, and the deployment strategy itself. This will minimize manual intervention, reduce errors, and expedite deployments. Additionally, the strategy incorporates security best practices and performance optimization techniques to ensure the applications' continued reliability and availability.
+\par 
+Finally, we discussed the methodology Scrum that will be adopted to manage the project. This agile framework will provide a structured approach to project management.
 \par
-The next chapter, "Detailed Existing Study," delves deeper into the technical underpinnings of our current environment. It provides a comprehensive analysis of the existing architecture and deployment process, laying the groundwork for the implementation of the proposed optimization solution in subsequent chapters.
+The next chapter, we will provide a comprehensive exposition to many concepts in the field of DevOps and cloud computing, which will be prove essential to understanding the project's technical aspects.

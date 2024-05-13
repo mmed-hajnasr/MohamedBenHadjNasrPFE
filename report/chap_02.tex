@@ -1,7 +1,6 @@
-\chapter{Detailed Existing study}
-
-\section*{Introduction}
-In this chapter, we will explain various concepts that are crucial for the subsequent sections of this report. We will also do a thorough detailed study of the current environment the existing architecture and the deployment process.
+\chapter{Fundamentals}
+\section{Introduction}
+This chapter dives into several exciting concepts that power this project. We'll begin by exploring cloud computing, its various service offerings, and the available options in this domain. Next, we'll delve into DevOps principles and the tools that empower its implementation. Finally, we'll unveil the specific tools chosen for this project and the reasoning behind their selection.
 
 \section{Cloud Computing}
 \paragraph*{Definition:}
@@ -26,7 +25,6 @@ So it makes sense to compare the three major cloud providers to see which one is
 \subsection*{Verdict}
 since this project is about transitioning to the cloud, and the fact that the company Adactim has a golden partnership with Microsoft, we will be using Microsoft Azure as our cloud provider.
 
-
 \section{Cloud Computing Services}
 \paragraph*{Definition:} Cloud computing services are a broad set of services that are delivered over the internet. These services are divided into three main categories: Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS).
 \subsection*{IaaS}
@@ -46,71 +44,47 @@ since this project is about transitioning to the cloud, and the fact that the co
 \textbf{Offered Services:} Azure offers a wide range of SaaS services, including Office 365, Dynamics 365, and many more. Unfortunately, these services are not relevant to us since we cannot use them to host our application.
 \subsection*{Verdict}
 After this brief overview of the cloud computing services, we can conclude that the IaaS and PaaS services are the most relevant to us, so I will implement the deployment plan using both of them and choose the most suitable one.
-\section{Infrastructure Study}
-The company is currently using the baseline web application architecture provided by Microsoft\cite{webArticle6}.
-This figure \ref{fig:gloabal_architecture} presents the global architecture of the application.
+
+\section{Introduction to DevOps\cite{webArticle0}}
+The goal of DevOps is to increase an organization's speed when it comes to delivering applications and services. Many companies have successfully implemented DevOps to enhance their user experience including Amazon, Netflix, etc.
+DevOps streamlines the application deployment process. Following each code contribution (commit) to a designated branch, DevOps automates the necessary tasks to ensure the appropriate deployment occurs while ensuring the appropriate testing is completed.
+\subsection{Devops lifecycle}
+DevOps lifecycle is the methodology where professional development teams come together to bring products to market more efficiently and quickly. The structure of the DevOps lifecycle consists of Plan, Code, Building, Test, Releasing, Deploying, Operating,  and Monitoring.
 
 \begin{figure}[htpb]
     \centering
-    \frame{\includegraphics[width=0.8\columnwidth]{gloabal_infrastructure.png}}
-    \caption{gloabal architecture}
-    \label{fig:gloabal_architecture}
+    \frame{\includegraphics[width=0.8\columnwidth]{devop_lifecycle.png}}
+    \caption{DevOps lifecycle}
+    \label{fig:devops_lifecycle}
 \end{figure}
 
-\pagebreak
-
-\noindent \textbf{Description:} The architecture exposes a public endpoint via Azure Application Gateway with a Web Application Firewall. The App Service application uses virtual network integration to securely communicate to Azure PaaS services such as Azure Key Vault and Azure SQL Database.
-
-\subsection*{Componants of the architecture}
 \begin{itemize}
-    \item \textbf{Virtual Network:} This is the fundamental building block for your private network in Azure. It provides isolation and protection for your resources.
-    \item \textbf{App Service:} This service is used to host the web application. It provides a fully managed platform for building, deploying, and scaling web apps.
-    \item \textbf{Azure SQL Database:} This service is used to store the application data. It provides a fully managed relational database with built-in high availability and security.
-    \item \textbf{Azure Key Vault:} This service is used to store and manage application secrets. It provides a secure and centralized storage for application secrets.
-    \item \textbf{Azure Application Gateway:} This service is used to protect the web application from common web vulnerabilities. It provides a web application firewall and other security features.
-    \item \textbf{Azure Monitor:} This service is used to monitor the health of the web application. It provides logging and application telemetry to monitor the health of the application.
-    \item \textbf{Azure DevOps:} This service is used to automate the deployment of the web application. It provides a set of tools for building, testing, and deploying applications.
-    \item \textbf{Virtual Interface:} This service is used to connect the web application to the virtual network. It provides a secure and private connection to the web application.
-    \item \textbf{Application Insights:} This service is used to monitor the performance of the web application. It provides real-time monitoring and analytics for the web application.
-    \item \textbf{Private DNS Service:} This service is used to resolve the DNS names of the Azure PaaS services. It provides a secure and private DNS resolution for the web application.
-    \item \textbf{Private endpoint:} This service is used to connect the web application to the Azure PaaS services. It provides a secure and private connection to the Azure PaaS services.
+    \item \textbf{Plan:} gathering the opinions of end-users by professionals in this level of the DevOps lifecycle.
+    \item \textbf{Code:} This is where the development team writes the code for the project.
+    \item \textbf{Build:} This is where the development team compiles the code into a common code source.
+    \item \textbf{Test:} Various sorts of tests are done such as user acceptability testing, safety testing, speed testing, and many more.
+    \item \textbf{Release:} At this level, everything is ready to be deployed in the production environment.
+    \item \textbf{Deploy:} In this level, Infrastructure-as-Code assists in creating the operational infrastructure and subsequently publishes the build.
+    \item \textbf{Operate:} At this level, the available version is ready for users to use. Here, the department looks after the server configuration.
+    \item \textbf{Monitor:} The observation is done at this level that depends on the data which is gathered from consumer behavior.
 \end{itemize}
 
-\subsection*{Network flows}
-\textbf{Inbound flow:}
+\subsection{Implementation of DevOps}
+There are multiple ways to implement the DevOps methodology into a project:
 \begin{itemize}
-    \item The user issues a request to the Application Gateway public IP.
-    \item The WAF rules are evaluated.
-    \item The request is routed to an App Service instance through the private endpoint.
+    \item \textbf{Leveraging Cloud-Based DevOps Solutions:}     Cloud providers like AWS, Azure, and GCP offer comprehensive DevOps platforms that integrate seamlessly with their respective cloud environments. These platforms provide pre-built tools for infrastructure provisioning, configuration management, CI/CD pipelines, and monitoring.
+    \item \textbf{Using Open-source DevOps Tools:}DevOps tools like Jenkins, GitLab, Ansible, and Terraform provide the necessary automation and orchestration capabilities to streamline the development and deployment process. These tools can be integrated to create a customized DevOps pipeline tailored to the project's specific requirements.
 \end{itemize}
-\textbf{App Service to Azure PaaS services flow:}
+Given that our web application resides in the cloud, leveraging a cloud-based DevOps solution offered by your chosen Cloud Service Provider (CSP) becomes an ideal approach. Here's why:
 \begin{itemize}
-    \item App Service makes a request to the DNS name of the required Azure service. The request could be to Azure Key Vault to get a secret, Azure SQL Database.
-    \item The request is routed to the service through the private endpoint.
+    \item \textbf{Seamless Integration:} Cloud-based DevOps solutions integrate seamlessly with the underlying cloud infrastructure, offering pre-configured tools and services specifically designed for that environment. This translates to faster setup, easier management, and optimized performance for your cloud-hosted project.
+    \item \textbf{Scalability and Elasticity:} Cloud-based solutions are inherently scalable and elastic. They can automatically adjust resources based on your project's demands, ensuring efficient resource utilization and cost optimization.
+    \item \textbf{Managed Services:} Many cloud providers offer managed DevOps services that take care of infrastructure management, patching, and security updates. This frees up your team to focus on core development tasks.
 \end{itemize}
 
-\textbf{Deploying to the app service:} \\
-The deployment process is initiated from the Azure portal by the admin from his machine.
-
-\subsection*{Architecture characteristics}
-\begin{itemize}
-    \item For security reasons, the network in this architecture has separate subnets for the Application Gateway, App Service integration components, and private endpoints. Each subnet has a network security group that limits both inbound and outbound traffic for those subnets to just what is required.
-    \item The App Service baseline configures authentication and authorization for user identities (users) and workload identities (Azure resources) and implements the principle of least privilege.
-    \item Azure Monitor collects and analyzes metrics and logs from your application code, infrastructure (runtime), and the platform (Azure resources).
-\end{itemize}
-\section{Deployment Process}
-The process of releasing a new application version or update in our system follows a multi-step approach. This approach ensures a smooth transition from development to production and minimizes the risk of introducing issues.
-Here's a breakdown of the key stages involved:
-\begin{itemize}
-    \item \textbf{Code Preparation:} During this stage, developers finalize the code for the new application version or update. This may involve tasks like code reviews, bug fixing, and integration with existing systems.
-    \item \textbf{Testing:} Once the code is prepared, it undergoes rigorous testing by the Quality Assurance (QA) team. This testing verifies that the application functions as intended identifies and resolves any bugs or errors, and ensures compatibility with different environments.
-    \item \textbf{Deployment Scheduling:} Following successful testing, a deployment plan is created. This plan defines the specific time and method for releasing the application to users. The plan often involves coordination between development, QA, and system administration teams to ensure a smooth rollout and minimal disruption to ongoing operations.
-    \item \textbf{Deployment:} During deployment, the application is transferred from its development environment to the production environment where it will be used by end-users. This process may involve tasks like uploading application files, configuring settings, and integrating with databases or other systems.
-    \item \textbf{Monitoring:} After deployment, the system administrators closely monitor the application's performance and functionality. This monitoring helps to identify any issues that may arise after the release and allows for prompt intervention if necessary.
-\end{itemize}
-Effective collaboration between development, QA, and system administration teams is crucial throughout this process. Clear communication and well-defined roles ensure a successful application deployment with minimal downtime and a positive experience for end-users.
 \section{Description of available tools}
-\subsection*{Terraform}
+
+\subsection{Terraform}
 
 \begin{figure}[htpb]
     \centering
@@ -127,7 +101,7 @@ Effective collaboration between development, QA, and system administration teams
     \item \textbf{Bicep} Think of Bicep as a specialized architect fluent in Azure, Microsoft's cloud platform. It speaks Azure's language directly, making it easier to design and manage resources within that specific environment. However, since its expertise is limited to Azure it does not have the community support offered by an open-source project like Terraform.
 \end{itemize}
 By understanding these factors, we can make the informed decision that the IaC tool that best suits our requirements is Terraform.
-\subsection*{Azure DevOps}
+\subsection{Azure DevOps}
 
 \begin{figure}[htpb]
     \centering
@@ -145,39 +119,6 @@ By understanding these factors, we can make the informed decision that the IaC t
     \item \textbf{Azure Boards:} Planning and tracking progress becomes transparent with this feature. It provides Kanban boards visually displaying tasks, backlogs listing upcoming work, and sprint planning tools.
     \item \textbf{Azure Artifacts:} Sharing reusable components becomes effortless with this feature. Think of it as a shared storage space for code modules, containerized applications, and other resources your team can easily access and reuse across projects.
 \end{itemize}
-\section{Overview of the scrum process}
-This overview outlines how we will be implementing the Scrum process to manage our project:
-\begin{itemize}
-    \item \textbf{Scrum events:} \begin{itemize}
-              \item \textbf{Retrospective (Weekly):} Held with the company supervisor to review the previous sprint, identify areas for improvement, and adapt the process for the upcoming sprint. This meeting can take place in person at the supervisor's office or virtually using Microsoft Teams.
-              \item \textbf{Sprint Planning (Before Each Sprint):} Select items from the backlog and commit to delivering them during the upcoming sprint (a short iteration typically lasting 2 weeks).
-          \end{itemize}
-    \item \textbf{Scrum implementation:} \begin{itemize}
-              \item \textbf{Product Backlog:} I will maintain a product backlog that outlines all the features and functionalities desired in the final product.
-              \item \textbf{Sprint Planning:} Before each sprint, a sprint planning meeting is held by the supervisor and me to select a set of items from the top of the product backlog that we commit to delivering during the upcoming sprint. This selection is called the sprint backlog.
-              \item \textbf{Sprint Execution:} I deliver the items in the sprint backlog.
-              \item \textbf{Sprint Retrospective:} At the end of each sprint, I will hold a sprint retrospective meeting with the company supervisor. This meeting will focus on reviewing what areas need improvement in the upcoming sprint.
-          \end{itemize}
 
-\begin{figure}[htpb]
-    \centering
-    \frame{\includegraphics[width=0.8\columnwidth]{scrum-framework-9.29.23.png}}
-    \caption{Scrum process  }
-    \label{fig:scrum_process}
-\end{figure}
-
-\end{itemize}
-By following the Scrum process and maintaining open communication, we can ensure a successful project that delivers value iteratively while continuously adapting to feedback and changes.
 \section*{Conclusion}
-This chapter has comprehensively analyzed the current state of our cloud environment, infrastructure, and deployment process. We compared various cloud service models, ultimately selecting Microsoft Azure due to its alignment with our company's existing partnership and strategic goals. Within Azure, we identified Infrastructure as a Service (IaaS) and Platform as a Service (PaaS) as the most suitable offerings for our application's needs.
-\par
-Our in-depth examination of the existing infrastructure revealed a secure and well-structured architecture leveraging Azure's robust security features. Moving forward, we will delve deeper into Terraform and Azure DevOps, exploring their functionalities for enhanced infrastructure management and automated deployment processes. This comprehensive analysis establishes a solid foundation for transitioning to a secure, efficient, and automated cloud-based deployment framework.
-\par
-To ensure an iterative and adaptable development approach, we will be implementing the Scrum process. This agile framework involves regular sprint cycles where we collaboratively define goals, execute tasks, and reflect on improvements. Through continuous feedback and adaptation within sprints, we can ensure the project delivers value efficiently while addressing evolving requirements.
-
-\begin{figure}
-    \centering
-    \frame{\includegraphics[width=0.84\columnwidth]{grantt.png}}
-    \caption{This is the grantt chart of the scrum process} 
-    \label{fig:scrum_process}
-\end{figure}
+In this chapter we have explored the fundamentals of cloud computing, DevOps principles, and the tools that empower its implementation. And with this we have the list of recourses that will be used: Azure , Azure Devops and terraform. Later on , in the next chapter we will dive into the analatycs of the existing infrastructure and the specification of our needs.

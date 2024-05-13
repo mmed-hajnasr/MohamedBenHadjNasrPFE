@@ -1,189 +1,168 @@
-\chapter{The deployment stratagy}
-\section{Introduction}
-in this day and age, users expect uninterrupted access to websites around the clock.  To ensure this high level of availability, selecting the right deployment strategy is critical.  This strategy should facilitate seamless updates with minimal to no downtime for the website.  Furthermore, a robust rollback procedure should be implemented to address any unforeseen issues that may arise during deployment.  This chapter will delve into the specific deployment strategy chosen for this project, along with the rollback procedure designed to ensure a smooth recovery process in the event of failure. and the monitoring tools that will be used to monitor the web application once deployed.
+\chapter{Continuous Integration and Deployment}
+
+\section*{Introduction}
+This chapter delves into the core components that establish a robust CI/CD pipeline for our project. We'll explore the setup process, delve into the selection of a branching strategy, and dissect the configuration of pipelines designed for development, staging, and production environments. Each stage within these pipelines will be meticulously explained, highlighting its function and contribution to the overall workflow.
 \section{Sprint backlog}
 \begin{longtable}[c]{
     |p{.85\textwidth}|
     p{.11\textwidth}|
     }
+    \caption{Sprint 2 backlog}
+    \label{tab:Sprint2_backlog}                                                                            \\
     \hline
-    research the different deployment strategies and select the most appropriate one & (3 points) \\
+    research the different branching strategies and pick the appropriate one for this project & (2 points) \\
     \hline
-    research the different rollback strategies and select the most appropriate one   & (2 points) \\
+    create the build pipeline and publish the artifacts for each environment                  & (3 points) \\
     \hline
-    compare the different ways to implement the deployment strategy.                 & (1 points) \\
+    create the provisioning pipeline for the development environment                          & (3 points) \\
     \hline
-    implement the deployment strategy in the production release pipeline             & (2 points) \\
+    set up the management of the state file of the terraform in the pipeline                  & (2 points) \\
     \hline
-    implement the rollback strategy in the production release pipeline               & (2 points) \\
+    create the release pipelines for the staging and production environments                  & (3 points) \\
     \hline
-    test the downtime of the deployment during an update.                            & (2 points) \\
+    test the pipeline by pushing code to the different branches and checking the results      & (2 points) \\
     \hline
-    test the rollback procedure.                                                     & (1 points) \\ \hline
 \end{longtable}
-\section{The different deployment strategies \cite{webArticle6}}
-A deployment strategy is a way to change or upgrade an application. The aim is to make the change without downtime in a way that the user barely notices the improvements.
-\par Now that we know what a deployment strategy is, let's dive into the different types of deployment strategies:
-
-\subsection*{Blue-green deployment:}
-This deployment strategy involves running the new version of the software alongside the old version.
-Stable or older versions of the application are always blue while newer versions are green.
-When the new version has been tested and certified to meet all the requirements, the load balancer automatically switches traffic from the older version to the newer one.
-\par \noindent \textbf{Advantages:} This strategy offers a quick update with simplicity and minimal impact on the users.
-\par \noindent \textbf{Desadvantages:} expensive since both the new and old versions must run simultaneously.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{blue_green_deployment.png}
-    \caption{blue-green deployment strategy.}
-    \label{fig:blue-green-deployment-strategy}
-\end{figure}
-
-\subsection*{Canary deployment:}
-During canary deployment, the team responsible for deployment gradually redirects traffic from the older version to the new one.
-This is done in small increments, allowing the team to monitor the new version's performance and quickly roll back if necessary.
-\par \noindent \textbf{Advantages:} This strategy allows for better performance monitoring as well as faster and easier software rollbacks.
-\par \noindent \textbf{Desadvantages:} It has a slow deployment cycle and requires more time.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{canary.png}
-    \caption{canary deployment strategy.}
-    \label{fig:canary-deployment-strategy}
-\end{figure}
-
-\subsection*{Ramped/Rolling deployment:}
-The ramped deployment strategy gradually changes the older version to the new version. Unlike canary deployment, the ramped deployment strategy replaces instances of the old application version with instances of the new application version one instance at a time.
-\par \noindent \textbf{Advantages:} This strategy costs less than canary and blue-green deployment strategies since every instance not used is destroyed.
-\par \noindent \textbf{Desadvantages:} In case of an unexpected event, the rollback process takes longer than the other strategies.
-
-\subsection*{A/B testing:}
-Developers deploy the new version alongside the older version in A/B testing deployment. However, this new version is only available to a limited number of users, who are selected according to certain conditions and parameters. Location, device type, UI language, and operating system can serve as parameters for selecting these users.
-\par \noindent \textbf{Advantages:} The use of real-time statistical data can help developers make informed decisions about their software.
-\par \noindent \textbf{Desadvantages:} This strategy is complex and requires a high-end load balancer that can access the application layer.
-
-\subsection*{Verdict}
-Given our need for swift deployments and near-instant rollbacks, coupled with a cost-effective and manageable infrastructure, a blue-green deployment strategy is the ideal choice.
-
-\section{The different ways to implement the deployment strategy}
-\subsection*{Utilizing Infrastructure as Code (IaC) and Traffic Management}
-this method needs these steps to be implemented in the pipeline:
+\section{Activities Completed}
 \begin{itemize}
-    \item Create a green environment using IaC tools.
-    \item deploy the new version of the application to the green environment.
-    \item Use the traffic management resource to switch the traffic from the blue environment to the green environment.
-\end{itemize}
-\textbf{Advantages:} This method is cost-effective and more customizable(because you can choose any SKU for the requirements).
-\\
-\textbf{Desadvantages:} It takes longer during updates since we need to create an environment each time. Also, it adds the complexity of adding a load balancer to the infrastructure.
-\subsection*{Leveraging Azure App Service Deployment Slots}
-Deployment slots are live apps with their host names. App content and configuration elements can be swapped between two deployment slots, including the production slot.
-\begin{itemize}
-    \item Create a deployment slot for the new version of the application.
-    \item Deploy the new version of the application to the deployment slot.
-    \item Swap the deployment slot with the production slot.
-\end{itemize}
-\textbf{Advantages:} It is way simpler to implement than the first method, and it is faster during updates.
-\\
-\textbf{Desadvantages:} This method requires at least the Standard SKU for the App Service Plan.
-\subsection*{Verdict:}
-since this strategy is implemented in the production environment choosing the Strandard SKU is acceptable. So to avoid unnecessary complexity and to speed up the deployment process, we will use the Azure App Service Deployment Slots method.
-\\
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{blue-green_implemented.png}
-    \caption{Azure App Service Deployment Slots implementation.}
-    \label{fig:deployment-slots}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\textwidth]{full_workflow.png}
-    \caption{the full workflow of the deployment strategy.}
-    \label{fig:deployment-strategy-full-workflow}
-\end{figure}
-
-\pagebreak
-\section{The rollback strategy}
-the deployment pipeline incorporates a robust rollback strategy to ensure minimal disruption and user satisfaction.
-\subsection*{Deployment process}
-
-\begin{itemize}
-    \item \textbf{New Version Deployment:} The new version is deployed through the pipeline.
-    \item \textbf{Automatic Rollback on Deployment Failure:} Any errors encountered during deployment will trigger an automatic rollback. This ensures the system quickly reverts to the previous stable version, minimizing downtime and potential data loss.
-    \item \textbf{User Feedback and Rollback Option:} Users have the opportunity to provide feedback on the new version. If a significant number of users express dissatisfaction, an admin can initiate a rollback.
+    \item \textbf{Azure DevOps account setup:} We created an Azure DevOps account to manage our CI/CD pipeline.
+    \item \textbf{picking the right git branching strategy:} We chose the appropriate branching strategy to manage our codebase.
+    \item \textbf{creation of the build pipeline:} We created a build pipeline that builds the dotnet core application and publishes the artifacts.
+    \item \textbf{creation of the release pipelines:} We created the release pipelines that deploy the artifacts to the different environments depending on the branch.
+    \item \textbf{testing the pipeline:} We tested the pipeline by pushing code to the different branches and checking the results.
 \end{itemize}
 
-\subsection{The rollback retention}
-\textbf{30-Day Rollback Window:}
-The pipeline, including the rollback option, remains accessible for 30 days after deployment. This window provides ample time for user feedback and admin decision-making.
-\\ \noindent
-\textbf{Automatic Rollback Rejection After 30 Days:}
-If no rollback is initiated within 30 days, the rollback stage is automatically deactivated. This prevents holding onto outdated rollback options indefinitely and we can delete the old version slots to avoid extra costs.
-\\
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{choice.png}
-    \caption{the rollback strategy implementation}
-    \label{fig:rollback-strategy}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{rollback.png}
-    \caption{seccuss rollback}
-    \label{fig:rollback-seccuss}
-\end{figure}
-
-\section{The monitoring strategy \cite{webArticle7}}
-we will use different monitoring tools offered by Azure to monitor the web application once deployed.
+\section{Version Control strategy}
+\subsection*{the different branching strategies\cite{webArticle3}:}
+\textbf{trunc based development:} In this strategy, requires no branches but instead, developers integrate their changes into a shared trunk at least once a day. This shared trunk should be ready for release anytime.
 \begin{itemize}
-    \item \textbf{Azure Health check:} This tool will monitor the health of the web application and notify the admin if any issues arise.
-    \item \textbf{Insights:} Application Insights monitors the availability, performance, and usage of your web applications, so you can identify and diagnose errors without waiting for a user to report them.
-
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.7\textwidth]{monitoring-insights.png}
-        \caption{monitoring insights set up}
-        \label{fig:monitoring-insights}
-    \end{figure}
-
-    \item \textbf{Alerts:} Alerts can be set up to notify the admin of any issues that arise with the web application. unlike Health check, this option is highly customizable.
-
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.7\textwidth]{alert-dashboard.png}
-        \caption{in this dashboard, you can check the status of the alerts.}
-        \label{fig:monitoring-alerts}
-    \end{figure}
-
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.5\textwidth]{alert-rule.png}
-        \caption{here you can set up the alerts.}
-        \label{fig:monitoring-set-up-alerts}
-    \end{figure}
-
-    \item \textbf{Metrics:} Metrics provide a detailed view of the web application's performance, including response time, request rate, and error rate.
-
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.8\textwidth]{metrics.png}
-        \caption{metrics dashboard}
-        \label{fig:monitoring-metrics}
-    \end{figure}
-
-    \item \textbf{Log Analytics:} Log Analytics provides a centralized location for monitoring and analyzing the web application's logs. This tool can help identify issues and troubleshoot problems quickly.
-
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.8\textwidth]{query-logs.png}
-        \caption{log analytics dashboard}
-        \label{fig:monitoring-log-analytics}
-    \end{figure}
-
+    \item \textbf{Advantages:} Have better visibility over what changes other developers are making as commits are made directly into the trunk without the need for branches.
+    \item \textbf{Desadvantages:} It can be difficult to monitor the quality of the codebase as there are no branches to isolate changes. This approach can be daunting for junior developers as they are interacting directly with the shared trunk.
 \end{itemize}
-\pagebreak
+\par
+\textbf{github flow:} In this strategy, there is only one branch called the main branch. Developers create feature branches from the main branch, work on their features, and then create a pull request to merge their changes back into the main branch.
+\begin{itemize}
+    \item \textbf{Advantages:} This strategy is particularly suited for small teams and web applications and it is ideal when you need to maintain a single production version.
+    \item \textbf{Desadvantages:} The lack of development branches makes this strategy more susceptible to bugs and so can lead to an unstable production code if branches are not properly tested before merging with the master-release preparation and bug fixes happen in this branch.
+\end{itemize}
+\par
+\textbf{gitflow:} In this strategy, there are two main branches: the master branch and the develop branch. The master branch contains the production-ready code while the develop branch contains the latest code that is ready for release.
+\begin{itemize}
+    \item \textbf{Advantages:} Perhaps the most obvious benefit of this model is that it allows for parallel development to protect the production code so the main branch remains stable for release while developers work on separate branches.
+    \item \textbf{Desadvantages:} Due to GitFlow's complexity, it could slow down the development process and release cycle. In that sense, GitFlow is not an efficient approach for teams wanting to implement continuous integration and continuous delivery.
+\end{itemize}
+\textbf{gitlab flow:} is a simpler alternative to GitFlow that combines feature-driven development and feature branching with issue tracking. GitLab Flow is great when you want to maintain multiple environments and when you prefer to have a staging environment separate from the production environment.
+\begin{itemize}
+    \item \textbf{Advantages:} It promotes teamwork and emphasizes code quality with a lean approach, encouraging practices like unit testing and CI/CD.
+    \item \textbf{Desadvantages:} With more frequent integration, there's a higher chance of merge conflicts, especially in larger teams.
+\end{itemize}
+\begin{longtable}[c]{
+    |p{.50\textwidth}
+    |p{.10\textwidth}|
+    p{.30\textwidth}|
+    }
+    \caption{the different situations where each branching strategy is suitable}
+    \label{tab:gitStratagyTable}
+    \\ \hline
+
+    Product type and its release method                                                                                            & Team size & Applicable branching strategy                \\ \hline
+    All                                                                                                                            & Small     & Trunk based development                      \\ \hline
+    Products that support continuous deployment and release, such as SaaS products                                                 & Middle    & GitHub-Flow and TBD                          \\ \hline
+    Products with a definite release window and a periodic version release cadence, such as iOS apps                               & Middle    & Git-Flow and GitLab-Flow with release branch \\ \hline
+    Products that are demanding for product quality and support continuous deployment and release, such as basic platform products & Middle    & GitLab-Flow                                  \\ \hline
+    Products that are demanding product quality and have a long maintenance cycle for released versions                            & Large     & Git-Flow                                     \\ \hline
+\end{longtable}
+\par
+\textbf{Verdict:} Considering the table's comparison and the advantages and disadvantages listed, GitLab Flow emerges as the optimal choice for our project's workflow since we can leverage its strengths to establish a smooth, efficient, and quality-focused development process for our continuous deployment pipeline.
+\subsection*{description of the GitLab flow strategy:}
+the GitLab flow strategy consists of 3 main branches: the main branch(develop), the staging branch(pre-prod), and the production branch(prod).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gitLab.png}
+    \caption{gitlab flow strategy}
+    \label{fig:gitlab}
+\end{figure}
+
+\subsection*{Main branches:}
+\begin{itemize}
+    \item \textbf{the main branch(develop):} This branch is the default branch and contains the latest code that is ready for release. Developers create feature branches from the main branch, work on their features, and then create a pull request to merge their changes back into the main branch.
+    \item \textbf{the staging branch(pre-prod):} This branch is used for testing the code by the QA team before it is deployed to the production environment. The staging branch is created from the main branch and is used to test the code in a production-like environment.
+    \item \textbf{the production branch(prod):} This branch contains the production-ready code that is deployed to the production environment. The production branch is created from the staging branch and is used to deploy the code to the production environment.
+\end{itemize}
+\subsection*{secondary branches:}
+these branches are short-lived and are used to develop new features or fix bugs.
+\begin{itemize}
+    \item \textbf{feature branches:} These branches are created from the main branch and are used to develop new features. Once the feature is complete, a pull request is created to merge the changes back into the main branch.
+    \item \textbf{Hotfix branches:} These branches are created from the production branch and are used to fix critical bugs in the production code. Once the bug is fixed, a pull request is created to merge the changes back into the production branch.
+\end{itemize}
+
+\section{The CI/CD pipelines}
+
+\subsection*{the build pipeline:}
+here's a detailed breakdown of the build pipeline for the .NET Core application:
+\begin{itemize}
+    \item \textbf{Fetch the code:} The pipeline starts by fetching the latest code from your GitHub repository or a pull request. This is done using a service connection that links our Azure DevOps account to the GitHub repository.
+    \item \textbf{Build the code:} This stage involves two main tasks:
+          \begin{itemize}
+              \item \textbf{Restore dependencies:} The pipeline installs NuGet and restores the packages required for the project. Nuget is the package manager responsible for managing the various dependencies of this application.
+              \item \textbf{Build the project:} The pipeline builds the .NET Core project using the dotnet build command.
+          \end{itemize}
+    \item \textbf{Run tests:} This stage involves running the unit tests and the integration tests to ensure the application functions as expected.
+    \item \textbf{Publish artifacts:} The pipeline publishes the build artifacts to the Azure DevOps server. These artifacts are to be used by the release pipeline to deploy the application to the different environments.
+\end{itemize}
+\subsection*{the release pipeline:}
+the release pipeline is the combination of the provisioning and deployment process. Here's a detailed breakdown of the different pipelines for the different environments:
+\subsubsection*{the development environment:}
+the dev environment is used for testing the code by the developers when a push request is made into the main branch and approval from another developer is required. it consists of the following stages:
+\begin{itemize}
+    \item \textbf{Fetch the artifacts:} The pipeline starts by fetching the latest artifact that contains the build of the application and the artifact that contains the terraform source code.
+    \item \textbf{Deploy the infrastructure:} The pipeline deploys the infrastructure using the terraform source code using the service connection to the Azure subscription.
+    \item \textbf{assign the variables:} The pipeline assigns the variables required for the deployment of the application like the name of the web app that is generated during deployment.
+    \item \textbf{deploy the application:} The pipeline deploys the application to the web app using the artifact that contains the build of the application.
+    \item \textbf{the approval stage:} After the pipeline notifies the responsible developer it waits for his approval to merge the code into the main branch after he is done reviewing the changes using the deployed application.
+    \item \textbf{the destruction of the infrastructure:} This stage is used to destroy the infrastructure after the request has been approved or rejected.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{dev_pipeline.png}
+    \caption{development pipeline}
+    \label{fig:devPipeline}
+\end{figure}
+
+\textbf{the benefits of this pipeline are:}
+\begin{itemize}
+    \item \textbf{fast feedback:} The pipeline provides fast feedback to the developers on the quality of the code.
+    \item \textbf{cost savings:} The pipeline saves costs by destroying the infrastructure after the request has been approved or rejected. so that the infrastructure doesn't keep running when not needed.
+    \item \textbf{multiple deployments:} The pipeline allows for multiple deployments in different infrastructures at once due to the randomly generated names. giving us the ability to test multiple pull requests at once.
+\end{itemize}
+\subsubsection*{the staging and the deployment pipelines:}
+\noindent These pipelines share similar stages but differ in their triggers:
+\begin{itemize}
+    \item \textbf{Staging Pipeline:} Triggered by a push or merge to the pre-production (pre-prod) branch. This environment mirrors production as closely as possible for testing purposes.
+    \item \textbf{Deployment Pipeline:} Triggered by a push or merge to the production (prod) branch. This pipeline deploys the application to the live environment used by end users.
+\end{itemize}
+\noindent The stages within these pipelines typically involve:
+\begin{itemize}
+    \item \textbf{Fetch the artifacts:} Similar to the development pipeline, this stage retrieves the latest Terraform configuration files and the recently built application artifact.
+    \item \textbf{Deploy the infrastructure:} In the staging and production environments, the infrastructure is already deployed using the terraform files. so we directly deploy the application to the web app.
+    \item \textbf{Notify Deployment Status:} Once the deployment is complete, the pipeline automatically notifies the designated manager (or team) about the success or failure of the process.
+\end{itemize}
+\textbf{the benefits of these pipelines are:}
+\begin{itemize}
+    \item \textbf{Increased Efficiency:} Automating deployments frees up valuable developer and operations time. They can focus on core activities like building new features, improving code quality, and resolving critical issues.
+    \item \textbf{Reduced Risk of Errors:} Manual deployments are prone to human error. Staging and deployment pipelines automate the entire process, minimizing the chance of mistakes that could lead to application downtime or malfunctions.
+    \item \textbf{Faster Release Cycles:} By automating the deployment process, teams can push new features and bug fixes to staging and production environments much quicker. This eliminates the time spent on manual tasks and allows for more frequent releases, keeping your software up-to-date and competitive.
+\end{itemize}
+\section{Challenges Faced}
+\subsection*{Problem(Secure Terraform State Management in a Multi-Stage Pipeline):}
+A critical hurdle encountered during CI/CD pipeline implementation was handling Terraform state files across stages. These files, generated during infrastructure deployment,  contain crucial details about the deployed infrastructure. Terraform relies on them to determine the current state for subsequent actions and this file was required by Terraform to destroy the infrastructure.
+\par The initial solution involved saving the state file in an Azure storage account. However, this necessitated granting pipeline access to the storage, incurring potential costs.
+\subsection*{solution:}
+Further exploration revealed a more efficient approach: utilizing the Azure CLI to destroy deployed resources. By relying solely on the readily accessible resource group name, the Azure CLI could effectively destroy resources after approval/rejection decisions, eliminating the need for storage access and associated costs.
 \section*{Conclusion}
-In conclusion, this chapter has outlined the deployment strategy chosen for this project, which is a blue-green deployment strategy. This strategy was selected due to its ability to provide swift deployments with minimal downtime and near-instant rollbacks. Additionally, a rollback strategy has been implemented to ensure a smooth recovery process in the event of any unforeseen issues during deployment. The rollback strategy includes a 30-day rollback window to allow for user feedback and admin decision-making. Finally, a monitoring strategy has been established to monitor the health, performance, and usage of the web application once deployed. This monitoring strategy utilizes various Azure monitoring tools, including Application Insights, Health Checks, Alerts, Metrics, and Log Analytics. By implementing these strategies, we can ensure a smooth and successful deployment process for our website.
+The meticulously crafted CI/CD pipeline significantly enhances the development process by automating deployments and infrastructure management. This automation not only minimizes manual work and the potential for errors but also facilitates faster deployments and cost savings through efficient infrastructure utilization.
+Our selection of the GitLab Flow branching strategy fosters collaboration and ensures code quality throughout the development lifecycle.
+\par
+In conclusion, our new CI/CD pipeline empowers our team to deliver features and updates with remarkable efficiency while maintaining an unwavering commitment to quality. As we move forward, the next chapter will explore the various deployment strategies available and delve into the process of selecting and implementing the most suitable option for our specific project requirements.

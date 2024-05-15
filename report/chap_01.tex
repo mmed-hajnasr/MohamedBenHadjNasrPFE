@@ -1,11 +1,9 @@
-\chapter{general framework of the project}
+\chapter{General framework of the project}
 \section*{Introduction}
 In this chapter we will present a global overview of the project, starting with the presentation of the host organization, followed by the problematic that was the reason behind the project, and finally we will into the methodology that was adopted to achieve this project objectives.
 \section{The Host Organization}
 \paragraph[short]{ADACTIM}
-is a Managed Services Operator specializing in the Cloud, application integration and outsourcing, ERP and BI, operating internationally via a presence in Europe, the Maghreb and Africa.
-\newline
-this figure \ref{fig:logo_Adactim} present the logo of the company.
+helps businesses leverage technology to improve their operations. They specialize in cloud computing, application integration and management, enterprise resource planning (ERP), and business intelligence (BI).  They operate internationally across Europe, North Africa, and Africa.
 
 \begin{figure}[htpb]
     \centering
@@ -14,12 +12,11 @@ this figure \ref{fig:logo_Adactim} present the logo of the company.
     \label{fig:logo_Adactim}
 \end{figure}
 
-\subsection*{Adactim  Mission}
+\subsection*{ \textbullet\ Adactim  Mission}
 ADACTIM can enable a company to benefit from technological transformations in the areas of IT infrastructure and integrated business systems allowing it to focus its energy on its core business.
-\par
-Their mission is to facilitate businesses' access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
-\par
-With this, the client company can focus its resources on its development and its customers. the company will be well-equipped with business software and IT infrastructure and outsource appropriate operations processes.
+\\
+\emph{"Their mission is to facilitate businesses' access to technological innovations, to simplify their daily use, allowing the company to be more efficient and competitive.
+With this, the client company can focus its resources on its development and its customers. the company will be well-equipped with business software and IT infrastructure and outsource appropriate operations processes."}
 \section{Problematic}
 
 \subsection{Existing study}
@@ -51,13 +48,13 @@ Strengths and Weaknesses of the Current Approach:
     \item Limited automation in certain areas leads to manual errors and delays during deployments.
 \end{itemize}
 \noindent
-\textbf{Conclusion:}
+\subsection{Problematic:}
 \par
 While our current deployment process prioritizes rigorous testing and cross-team collaboration, it faces significant challenges impacting both efficiency and reliability. One critical issue lies in the protracted nature of deployment timelines. This stems from the inherent complexity of coordinating and executing numerous manual testing processes. Consequently, not only are the releases of crucial applications delayed but the potential for human error during manual interventions is also amplified
 \par
 In essence, our current application deployment process faces a critical challenge: balancing the strengths of its structured workflow and collaborative approach with the need for faster, more automated deployments.
 
-\subsection{Proposed Deployment Optimization Solution}
+\section{Proposed Deployment Optimization Solution}
 In order to address the identified challenges, we propose a solution that leverages modern technologies and methodologies like Devops.
 \begin{itemize}
 
@@ -75,13 +72,13 @@ In order to address the identified challenges, we propose a solution that levera
 \end{itemize}
 
 \section{Methodology of the project}
-While some projects might seem straightforward, a defined methodology is crucial for achieving success.  This framework provides a roadmap, ensuring tasks are completed efficiently and in the right order. By following a methodology, we can avoid common pitfalls, manage our time effectively, and ultimately deliver a successful project.
-\subsection*{Agile vs traditional methodologies \cite{webArticle4}}
+While some projects might seem straightforward, a defined methodology is crucial for achieving success. This framework provides a roadmap, ensuring tasks are completed efficiently and in the right order. By following a methodology, we can avoid common pitfalls, manage our time effectively, and ultimately deliver a successful project.
+\subsection*{ \textbullet\ Agile vs traditional methodologies}
 \begin{longtable}[c]{
     |p{.45\textwidth}
     |p{.45\textwidth}|
     }
-    \caption{the significant differences between traditional and agile project methodologies.}
+    \caption{the significant differences between traditional and agile project methodologies. \cite{webArticle1}}
     \label{tab:traditional_vs_agile}                                                           \\
     \hline
     \textbf{ Traditional Methodology }         & \textbf{ Agile Methodology }                  \\
@@ -104,17 +101,13 @@ While some projects might seem straightforward, a defined methodology is crucial
     \hline
 \end{longtable}
 the choice between agile and traditional methodologies hinges on how much flexibility is needed. Agile thrives on an iterative approach. The team continuously works in short cycles, delivering features and gathering feedback to adapt and refine the project as it goes. This makes it ideal for DevOps, where requirements can evolve quickly. Traditional methods, on the other hand, emphasize upfront planning with a detailed roadmap. While this can be beneficial for projects with clear goals from the beginning, it can hinder DevOps teams who need to be adaptable and responsive to new information or feedback throughout the project lifecycle.
-\subsection*{choice of the Agile methodology}
-While seemingly designed for larger teams, Agile methodologies\cite{webArticle0} offer valuable structure even for single-person projects. Their core principles of iterative development, continuous improvement, and flexibility empower individuals to efficiently manage projects.
-Let's explore some popular Agile methodologies and their strengths:
-\begin{itemize}
-    \item \textbf{scrum:} Scrum is an agile framework that helps teams structure their work into short development cycles called sprints. Scrum teams commit to shipping work at the end of each sprint and adopt practices and a team structure that helps them achieve this cadence. Scrum takes the agile principles one step further, creating a structure that helps teams live the agile principles in their day-to-day work. Scrum is a well-documented agile framework that many teams can adopt without much disruption.
-    \item \textbf{Kanban:} To master Kanban, you need to be familiar with four essential Kanban metrics—lead time, cycle time, work-in-progress, and throughput. That means that implementing kanban will introduce an additional overhead to the project.
-\end{itemize}
-\subsection*{Verdict:}
+\subsection*{ \textbullet\ The Agile methodology}
+\emph{"While seemingly designed for larger teams, Agile methodologies offer valuable structure even for single-person projects. Their core principles of iterative development, continuous improvement, and flexibility empower individuals to efficiently manage projects."}\cite{webArticle2}
+\textbf{scrum:} Scrum is an agile framework that helps teams structure their work into short development cycles called sprints. Scrum teams commit to shipping work at the end of each sprint and adopt practices and a team structure that helps them achieve this cadence. Scrum takes the agile principles one step further, creating a structure that helps teams live the agile principles in their day-to-day work. Scrum is a well-documented agile framework that many teams can adopt without much disruption.
+\subsection*{ \textbullet\ Verdict:}
 Considering the project's potential for evolving requirements and the benefits of iterative development, Scrum emerges as the optimal choice. Its focus on defined sprints, adaptability, and a structured approach to project management, even for solo developers, aligns perfectly with our project needs.
 
-\subsection*{the implementation of Scrum process}
+\subsection*{ \textbullet\ The implementation of Scrum process}
 This overview outlines how we will be implementing the Scrum process to manage our project:
 \begin{itemize}
     \item \textbf{Scrum events:} \begin{itemize}
@@ -124,16 +117,15 @@ This overview outlines how we will be implementing the Scrum process to manage o
     \item \textbf{Scrum implementation:} \begin{itemize}
               \item \textbf{Product Backlog:} I will maintain a product backlog that outlines all the features and functionalities desired in the final product.
               \item \textbf{Sprint Planning:} Before each sprint, a sprint planning meeting is held by the supervisor and me to select a set of items from the top of the product backlog that we commit to delivering during the upcoming sprint. This selection is called the sprint backlog.
-              \item \textbf{Sprint Execution:} I deliver the items in the sprint backlog.
+              \item \textbf{Sprint Execution:} I deliver the items in the sprint backlog. with each sprint lasting two weeks.
               \item \textbf{Sprint Retrospective:} At the end of each sprint, I will hold a sprint retrospective meeting with the company supervisor. This meeting will focus on reviewing what areas need improvement in the upcoming sprint.
           \end{itemize}
-
 \end{itemize}
 
 \begin{figure}[htpb]
     \centering
     \frame{\includegraphics[width=0.8\columnwidth]{scrum-framework-9.29.23.png}}
-    \caption{Scrum process}
+    \caption{Scrum process \cite{webArticle2}}
     \label{fig:scrum_process}
 \end{figure}
 
@@ -143,7 +135,7 @@ By following the Scrum process and maintaining open communication, we can ensure
 This chapter outlined the challenges associated with our current applications deployment process, which prioritizes thorough testing and collaboration but suffers from lengthy timelines and manual errors. To address these shortcomings, we proposed a new approach that leverages modern technologies and methodologies to achieve faster, more reliable deployments.
 \par
 The proposed solution emphasizes automation throughout the deployment lifecycle, encompassing infrastructure provisioning, build and testing processes, and the deployment strategy itself. This will minimize manual intervention, reduce errors, and expedite deployments. Additionally, the strategy incorporates security best practices and performance optimization techniques to ensure the applications' continued reliability and availability.
-\par 
+\par
 Finally, we discussed the methodology Scrum that will be adopted to manage the project. This agile framework will provide a structured approach to project management.
 \par
 The next chapter, we will provide a comprehensive exposition to many concepts in the field of DevOps and cloud computing, which will be prove essential to understanding the project's technical aspects.

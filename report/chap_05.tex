@@ -33,7 +33,7 @@ This chapter delves into the core components that establish a robust CI/CD pipel
 \end{itemize}
 
 \section{Version Control strategy}
-\subsection*{the different branching strategies\cite{webArticle3}:}
+\subsection*{ \textbullet\ The different branching strategies\cite{webArticle3}:}
 \textbf{trunc based development:} In this strategy, requires no branches but instead, developers integrate their changes into a shared trunk at least once a day. This shared trunk should be ready for release anytime.
 \begin{itemize}
     \item \textbf{Advantages:} Have better visibility over what changes other developers are making as commits are made directly into the trunk without the need for branches.
@@ -74,7 +74,7 @@ This chapter delves into the core components that establish a robust CI/CD pipel
 \end{longtable}
 \par
 \textbf{Verdict:} Considering the table's comparison and the advantages and disadvantages listed, GitLab Flow emerges as the optimal choice for our project's workflow since we can leverage its strengths to establish a smooth, efficient, and quality-focused development process for our continuous deployment pipeline.
-\subsection*{description of the GitLab flow strategy:}
+\subsection*{ \textbullet\ Description of the GitLab flow strategy:}
 the GitLab flow strategy consists of 3 main branches: the main branch(develop), the staging branch(pre-prod), and the production branch(prod).
 
 \begin{figure}[htbp]
@@ -84,13 +84,13 @@ the GitLab flow strategy consists of 3 main branches: the main branch(develop), 
     \label{fig:gitlab}
 \end{figure}
 
-\subsection*{Main branches:}
+\subsection*{ \textbullet\ Main branches:}
 \begin{itemize}
     \item \textbf{the main branch(develop):} This branch is the default branch and contains the latest code that is ready for release. Developers create feature branches from the main branch, work on their features, and then create a pull request to merge their changes back into the main branch.
     \item \textbf{the staging branch(pre-prod):} This branch is used for testing the code by the QA team before it is deployed to the production environment. The staging branch is created from the main branch and is used to test the code in a production-like environment.
     \item \textbf{the production branch(prod):} This branch contains the production-ready code that is deployed to the production environment. The production branch is created from the staging branch and is used to deploy the code to the production environment.
 \end{itemize}
-\subsection*{secondary branches:}
+\subsection*{ \textbullet\ Secondary branches:}
 these branches are short-lived and are used to develop new features or fix bugs.
 \begin{itemize}
     \item \textbf{feature branches:} These branches are created from the main branch and are used to develop new features. Once the feature is complete, a pull request is created to merge the changes back into the main branch.
@@ -99,7 +99,7 @@ these branches are short-lived and are used to develop new features or fix bugs.
 
 \section{The CI/CD pipelines}
 
-\subsection*{the build pipeline:}
+\subsection*{ \textbullet\ The build pipeline:}
 here's a detailed breakdown of the build pipeline for the .NET Core application:
 \begin{itemize}
     \item \textbf{Fetch the code:} The pipeline starts by fetching the latest code from your GitHub repository or a pull request. This is done using a service connection that links our Azure DevOps account to the GitHub repository.
@@ -111,9 +111,9 @@ here's a detailed breakdown of the build pipeline for the .NET Core application:
     \item \textbf{Run tests:} This stage involves running the unit tests and the integration tests to ensure the application functions as expected.
     \item \textbf{Publish artifacts:} The pipeline publishes the build artifacts to the Azure DevOps server. These artifacts are to be used by the release pipeline to deploy the application to the different environments.
 \end{itemize}
-\subsection*{the release pipeline:}
+\subsection*{ \textbullet\ The release pipeline:}
 the release pipeline is the combination of the provisioning and deployment process. Here's a detailed breakdown of the different pipelines for the different environments:
-\subsubsection*{the development environment:}
+\subsubsection*{ \textbullet\ The development environment:}
 the dev environment is used for testing the code by the developers when a push request is made into the main branch and approval from another developer is required. it consists of the following stages:
 \begin{itemize}
     \item \textbf{Fetch the artifacts:} The pipeline starts by fetching the latest artifact that contains the build of the application and the artifact that contains the terraform source code.
@@ -137,7 +137,7 @@ the dev environment is used for testing the code by the developers when a push r
     \item \textbf{cost savings:} The pipeline saves costs by destroying the infrastructure after the request has been approved or rejected. so that the infrastructure doesn't keep running when not needed.
     \item \textbf{multiple deployments:} The pipeline allows for multiple deployments in different infrastructures at once due to the randomly generated names. giving us the ability to test multiple pull requests at once.
 \end{itemize}
-\subsubsection*{the staging and the deployment pipelines:}
+\subsubsection*{ \textbullet\ The staging and the deployment pipelines:}
 \noindent These pipelines share similar stages but differ in their triggers:
 \begin{itemize}
     \item \textbf{Staging Pipeline:} Triggered by a push or merge to the pre-production (pre-prod) branch. This environment mirrors production as closely as possible for testing purposes.
@@ -156,10 +156,10 @@ the dev environment is used for testing the code by the developers when a push r
     \item \textbf{Faster Release Cycles:} By automating the deployment process, teams can push new features and bug fixes to staging and production environments much quicker. This eliminates the time spent on manual tasks and allows for more frequent releases, keeping your software up-to-date and competitive.
 \end{itemize}
 \section{Challenges Faced}
-\subsection*{Problem(Secure Terraform State Management in a Multi-Stage Pipeline):}
+\subsection*{ \textbullet\ Problem(Secure Terraform State Management in a Multi-Stage Pipeline):}
 A critical hurdle encountered during CI/CD pipeline implementation was handling Terraform state files across stages. These files, generated during infrastructure deployment,  contain crucial details about the deployed infrastructure. Terraform relies on them to determine the current state for subsequent actions and this file was required by Terraform to destroy the infrastructure.
 \par The initial solution involved saving the state file in an Azure storage account. However, this necessitated granting pipeline access to the storage, incurring potential costs.
-\subsection*{solution:}
+\subsection*{ \textbullet\ Solution:}
 Further exploration revealed a more efficient approach: utilizing the Azure CLI to destroy deployed resources. By relying solely on the readily accessible resource group name, the Azure CLI could effectively destroy resources after approval/rejection decisions, eliminating the need for storage access and associated costs.
 \section*{Conclusion}
 The meticulously crafted CI/CD pipeline significantly enhances the development process by automating deployments and infrastructure management. This automation not only minimizes manual work and the potential for errors but also facilitates faster deployments and cost savings through efficient infrastructure utilization.

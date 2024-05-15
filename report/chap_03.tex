@@ -84,43 +84,63 @@ To be able to improve the current deployment process while ensure the security a
     \item \textbf{Cost optimization:} Minimize the costs associated with deployment processes, including recourses and infrastructure.
 \end{itemize}
 
-\subsection{Objectives}
-By analysing the needs and requirements, we have defined the following objectives and deliverables that will be provided during multiple sprints:
+\subsection{product backlog}
+By analysing the needs and requirements, we have defined the following product backlog that will be provided during multiple sprints:
 \begin{longtable}[c]{
-    |p{.20\textwidth}
-    |p{.55\textwidth}|
-    p{.21\textwidth}|
+    |p{.05\textwidth}
+    |p{.85\textwidth}|
+    p{.05\textwidth}|
     }
     \caption{the key technical objectives for the project}
-    \label{tab:objectivesTable}                      \\
+    \label{tab:productBacklog}                      \\
     \hline
 
-    the Sprints
-     & Objectives
-     & Delivrables                                   \\
+    num
+     & task
+     & effort                                   \\
     \hline
 
-    Sprint1(2 weeks)
-     & Probision the cloud infrastructure as IaC
-     & Terraform scripts                             \\
-    \hline
-
-    Sprint2(2 weeks)
-     & Implement the Continuous Integration pipeline
-     & a DevOps workflow                             \\
-    \hline
-
-    Sprint3(2 weeks)
-     & Set up a deployment strategy
-     & seamless deployment                           \\
-    \hline
+    1 & Define the structure and variables for the web Terraform module & 4 pt \\ \hline
+    2 & Define the structure and variables for the database Terraform module & 4 pt \\ \hline
+    3 & Define the structure and variables for the storage account Terraform module & 2 pt \\ \hline
+    4 & Implement the DNS zones for each module and set up the connections between them. & 4 pt \\ \hline
+    5 & Configure security groups for resources in each module. & 1 pt \\ \hline
+    6 & Define environment-specific variables for the rest of the environments: QA and prod. & 4 pt \\ \hline
+    7 & Deploy a simple web application to test the infrastructure. & 1 pt \\ \hline
+    8 & write the necessary documentation on how to use the different workspaces. & 2 pt \\ \hline
+    9 & Test connectivity between the web application and the database for each environment. & 3 pt \\ \hline
+    10 & Configure the production environment for optimal performance. & 2 pt \\ \hline
+    11 & research the different branching strategies and pick the appropriate one. & 2 pt \\ \hline
+    12 & create the build pipeline and publish the artifacts for each environment. & 4 pt \\ \hline
+    13 & create the provisioning pipeline for the development environment & 4 pt \\ \hline
+    14 & set up the management of the state file of the terraform in the pipeline & 2 pt \\ \hline
+    15 & create the release pipelines for the staging and production environments & 3 pt \\ \hline
+    16 & test the pipeline by pushing code to the different branches and checking the results & 2 pt \\ \hline
+    17 & research the different deployment strategies and select the most appropriate one & 3 pt \\ \hline
+    18 & research the different rollback strategies and select the most appropriate one & 3 pt \\ \hline
+    19 & compare the different ways to implement the deployment strategy. & 2 pt \\ \hline
+    20 & implement the deployment strategy in the production release pipeline & 4 pt \\ \hline
+    21 & implement the rollback strategy in the production release pipeline & 4 pt \\ \hline
+    22 & test the downtime of the deployment during an update. & 2 pt \\ \hline
+    23 & test the rollback procedure. & 2 pt \\ \hline
 \end{longtable}
+
+\subsection{Definition of Done}
+The definition of done is a checklist of requirements that must be met before a task can be considered complete. 
+
+\begin{itemize}
+    \item the deployment must be done with no manual intervention.
+    \item the production environment must not be dowm for more than 3 minutes during the deployment.
+    \item the rollback procedure must be tested and working in under than 4 minutes.
+    \item commits in the dev branch must result in the creation of a new testing environment.
+    \item the infrastructure must provisioned in a maintanable and reproducible code.
+\end{itemize}
 
 \begin{figure}
     \centering
-    \frame{\includegraphics[width=0.84\columnwidth]{grantt.png}}
-    \caption{This is the grantt chart of the scrum process}
-    \label{fig:grantt_chart}
+    \frame{\includegraphics[width=0.9\columnwidth]{gantt.png}}
+    \caption{This is the gantt chart of the scrum process}
+    \label{fig:gantt_chart}
 \end{figure}
 
 \section*{Conclusion}

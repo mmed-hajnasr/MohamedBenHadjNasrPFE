@@ -2,7 +2,46 @@
 
 \section*{Introduction}
 \noindent
-The first sprint of this project focused on provisioning the necessary cloud resources and setting the connections between them. In this chapter, we will present how we customized the architecture to our needs and the challenges we faced during the process, and we will also showcase the features implemented in the terraform modules.
+The first sprint of this project focused on provisioning the necessary cloud resources and setting the connections between them. In this chapter, we will present how we customized the architecture to our needs and the challenges we faced during the process, and we will also showcase the features implemented in the IaC scripts.
+
+\section{Description of available tools}
+
+\subsection{Terraform}
+
+\begin{figure}[htpb]
+    \centering
+    \frame{\includegraphics[width=0.5\columnwidth]{Terraform.png}}
+    \caption{Terraform}
+    \label{fig:terraform}
+\end{figure}
+
+Imagine building your software on a foundation pre-designed with specific instructions, rather than individually placing each brick. This is the essence of Terraform, an open-source IaC tool. It allows you to define the infrastructure your application needs using a simple language, similar to writing instructions. This simplifies managing resources across different environments (cloud-based or on-premises) with consistent configurations, ensuring everything is built according to your specifications.
+\par
+\textbf{Alternatives:}
+\begin{itemize}
+    \item \textbf{Azure Resource Manager (ARM) templates:} These templates are native to Azure, offering familiarity and direct management within the platform. However, they require more technical knowledge and lack the flexibility and reliability of IaC tools like Terraform.
+    \item \textbf{Bicep} Think of Bicep as a specialized architect fluent in Azure, Microsoft's cloud platform. It speaks Azure's language directly, making it easier to design and manage resources within that specific environment. However, since its expertise is limited to Azure it does not have the community support offered by an open-source project like Terraform.
+\end{itemize}
+By understanding these factors, we can make the informed decision that the IaC tool that best suits our requirements is Terraform.
+\subsection{Azure DevOps}
+
+\begin{figure}[htpb]
+    \centering
+    \frame{\includegraphics[width=0.5\columnwidth]{azure-devops-offerings.jpg}}
+    \caption{Azure DevOps}
+    \label{fig:Azure_DevOps}
+\end{figure}
+
+This platform acts as a comprehensive toolkit for software teams, offering various features to manage the entire development lifecycle efficiently.
+\par
+\textbf{Features:}
+\begin{itemize}
+    \item \textbf{Azure Repos:} This feature keeps your code organized and secure, just like a well-structured library holding all your project versions. It can use either Git or Team Foundation Version Control (TFVC) to manage your code.
+    \item \textbf{Azure Pipelines:}  This service automates tasks like compiling code, running tests, and deploying new versions, saving time and minimizing errors.
+    \item \textbf{Azure Boards:} Planning and tracking progress becomes transparent with this feature. It provides Kanban boards visually displaying tasks, backlogs listing upcoming work, and sprint planning tools.
+    \item \textbf{Azure Artifacts:} Sharing reusable components becomes effortless with this feature. Think of it as a shared storage space for code modules, containerized applications, and other resources your team can easily access and reuse across projects.
+\end{itemize}
+
 \section{Sprint backlog}
 \begin{longtable}[c]{
     |p{.85\textwidth}|
@@ -69,7 +108,7 @@ the deliverables for this sprint are the terraform configuration that adapts to 
               \item it is open to the public.
           \end{itemize}
 \end{itemize}
-\subsection*{the file structure:}
+\subsection*{ \textbullet\ the file structure:}
 this figure \ref{fig:file_structure} shows the file structure of the terraform configuration.
 
 \begin{figure}[htpb]
@@ -84,7 +123,7 @@ Furthermore, to ensure consistency and streamline configuration changes, we grou
 \par
 This combined approach of modular structure and centralized variable management promotes efficient and well-organized Terraform configuration, fostering long-term project maintainability and scalability.
 \section{Challenges:}
-\subsection*{the problem:}
+\subsection*{ \textbullet\ The problem:}
 The main challenge we faced during Sprint 1 was configuring the DNS zones to enable communication between the web application and the database. Despite successfully provisioning the necessary cloud resources, the web application encountered issues resolving the hostname of the database. This meant the application couldn't locate the database to retrieve or store data, hindering core functionality. Troubleshooting involved verifying several aspects:
 
 \begin{figure}[htpb]
@@ -100,7 +139,7 @@ The main challenge we faced during Sprint 1 was configuring the DNS zones to ena
     \item \textbf{verify connections:} We had to verify that the database was accessible from the web application. and that the web could access the DNS server.
 \end{itemize}
 By systematically examining these potential causes, we were able to identify that the web app did not have access to the DNS server provided by Azure. This experience highlights the importance of careful configuration and understanding of how DNS plays a crucial role in enabling communication between different components within a cloud infrastructure.
-\subsection*{the solution:}
+\subsection*{ \textbullet\ The solution:}
 To address the DNS resolution issue between the web application and the database, we capitalized on a core Azure concept: \textbf{the Wire Server}. This managed DNS server, automatically created within each virtual network, plays a critical role in resolving internal DNS queries using private DNS zones. Although offered as a free service, the Wire Server isn't automatically configured as the default DNS server for the virtual network.
 
 \begin{figure}[htpb]
@@ -113,11 +152,11 @@ To address the DNS resolution issue between the web application and the database
 Our solution involved leveraging Terraform to explicitly set the Wire Server's static IP address (168.63.129.16) as the default DNS server within our virtual network configuration. By making this configuration change, we ensured that the web application could effectively utilize the Wire Server to resolve the database hostname and establish the necessary communication channel. This approach eliminated the initial DNS resolution obstacle and facilitated seamless communication between the application and the database.
 
 \section{Testing the connections:}
-\subsection*{the user to the application:}
+\subsection*{ \textbullet\ The user to the application:}
 To test the connectivity between the web application and the user, I deployed a simple web application that displays a welcome message. We then accessed the web application using a web browser to verify that the application was accessible from the designated CIDR range in the development environment.
-\subsection*{the application to the database:}
+\subsection*{ \textbullet\ The application to the database:}
 To test the connectivity between the web application and the database, I used the Azure Portal to verify that the web application could successfully communicate with the database. This involved checking the database connection status and ensuring that the web application could read and write data to the database.
-\subsection*{Integration testing:}
+\subsection*{ \textbullet\ Integration testing:}
 To ensure that the web application and database could communicate effectively, I performed integration testing by simulating user interactions with the application. This involved submitting data through the web application and verifying that the data was correctly stored and retrieved from the database. By testing the end-to-end functionality of the application, I confirmed that the web application and database were successfully connected and operational.
 \begin{figure}[htpb]
     \centering

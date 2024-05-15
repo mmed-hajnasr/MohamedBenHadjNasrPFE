@@ -1,0 +1,2 @@
+- better quoting 
+- add product backlog , team , scrum master, length of sprints defention of done.

@@ -182,6 +182,7 @@
 
 %================= configuring minitoc ==================%
 \usepackage[english]{minitoc}
+\usepackage{float}
 \mtcsettitle{minitoc}{Plan}
 \setcounter{minitocdepth}{1}
 \mtcsetrules{minitoc}{off}

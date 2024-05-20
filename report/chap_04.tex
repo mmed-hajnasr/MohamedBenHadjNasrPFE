@@ -4,44 +4,6 @@
 \noindent
 The first sprint of this project focused on provisioning the necessary cloud resources and setting the connections between them. In this chapter, we will present how we customized the architecture to our needs and the challenges we faced during the process, and we will also showcase the features implemented in the IaC scripts.
 
-\section{Description of available tools}
-
-\subsection{Terraform}
-
-\begin{figure}[htpb]
-    \centering
-    \frame{\includegraphics[width=0.5\columnwidth]{Terraform.png}}
-    \caption{Terraform}
-    \label{fig:terraform}
-\end{figure}
-
-Imagine building your software on a foundation pre-designed with specific instructions, rather than individually placing each brick. This is the essence of Terraform, an open-source IaC tool. It allows you to define the infrastructure your application needs using a simple language, similar to writing instructions. This simplifies managing resources across different environments (cloud-based or on-premises) with consistent configurations, ensuring everything is built according to your specifications.
-\par
-\textbf{Alternatives:}
-\begin{itemize}
-    \item \textbf{Azure Resource Manager (ARM) templates:} These templates are native to Azure, offering familiarity and direct management within the platform. However, they require more technical knowledge and lack the flexibility and reliability of IaC tools like Terraform.
-    \item \textbf{Bicep} Think of Bicep as a specialized architect fluent in Azure, Microsoft's cloud platform. It speaks Azure's language directly, making it easier to design and manage resources within that specific environment. However, since its expertise is limited to Azure it does not have the community support offered by an open-source project like Terraform.
-\end{itemize}
-By understanding these factors, we can make the informed decision that the IaC tool that best suits our requirements is Terraform.
-\subsection{Azure DevOps}
-
-\begin{figure}[htpb]
-    \centering
-    \frame{\includegraphics[width=0.5\columnwidth]{azure-devops-offerings.jpg}}
-    \caption{Azure DevOps}
-    \label{fig:Azure_DevOps}
-\end{figure}
-
-This platform acts as a comprehensive toolkit for software teams, offering various features to manage the entire development lifecycle efficiently.
-\par
-\textbf{Features:}
-\begin{itemize}
-    \item \textbf{Azure Repos:} This feature keeps your code organized and secure, just like a well-structured library holding all your project versions. It can use either Git or Team Foundation Version Control (TFVC) to manage your code.
-    \item \textbf{Azure Pipelines:}  This service automates tasks like compiling code, running tests, and deploying new versions, saving time and minimizing errors.
-    \item \textbf{Azure Boards:} Planning and tracking progress becomes transparent with this feature. It provides Kanban boards visually displaying tasks, backlogs listing upcoming work, and sprint planning tools.
-    \item \textbf{Azure Artifacts:} Sharing reusable components becomes effortless with this feature. Think of it as a shared storage space for code modules, containerized applications, and other resources your team can easily access and reuse across projects.
-\end{itemize}
-
 \section{Sprint backlog}
 \begin{longtable}[c]{
     |p{.85\textwidth}|
@@ -76,19 +38,25 @@ This platform acts as a comprehensive toolkit for software teams, offering vario
     \hline
 \end{longtable}
 
-\section{The modified architecture:}
-a slight modification made to the original architecture consists of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
-\\ the new simplified architecture is shown in figure \ref{fig:new_arch}.
+\section{Realisation}
+in this sprint we focused on provisioning the cloud infrastructure for our project. This involved defining and configuring the necessary cloud resources, setting up the connections between them.
+and since the infrastructure will be used in three diffrent distinct situations, the first one being the development environment, in the dev team cant test the application , the second one is the quality assurance (QA) environment, where the application is tested thouroly by the QA team, and the last one is the production environment where the application is deployed to the public.
+the code I wrote need to adapt depending on the environment while also maintaining modularity and reusability.
+To promote code reusability, maintainability, and clarity, we adopted a modular approach for our Terraform configuration. This involved structuring the code into distinct modules, each encapsulating a specific aspect of the infrastructure (e.g., web app, database, storage account). This approach allows us to manage and update each module independently, and to reuse them across different environments.
+Furthermore, to ensure consistency and streamline configuration changes, we grouped frequently used variables like SKU names, VNet prefixes, and subnet prefixes into a dedicated local.tf file.
+This combined approach of modular structure and centralized variable management promotes efficient and well-organized Terraform configuration, fostering long-term project maintainability and scalability.
 
-\begin{figure}[htpb]
+this figure \ref{fig:file_structure} shows the file structure of the terraform configuration.
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{web_app_with_private_access_to_database_and_stroage_account.png}
-    \caption{The new architecture}
-    \label{fig:new_arch}
+    \includegraphics[width=0.3\textwidth]{file_structure.png}
+    \caption{The file structure}
+    \label{fig:file_structure}
 \end{figure}
 
-\section{Delivrables:}
-the deliverables for this sprint are the terraform configuration that adapts to three different workspaces:
+\subsection{the difference between the environments} 
+using the terraform workspaces to manage the different environments, we can define the differences between the environments.
 \begin{itemize}
     \item \textbf{dev:} the development environment:
           \begin{itemize}
@@ -108,25 +76,25 @@ the deliverables for this sprint are the terraform configuration that adapts to 
               \item it is open to the public.
           \end{itemize}
 \end{itemize}
-\subsection*{ \textbullet\ the file structure:}
-this figure \ref{fig:file_structure} shows the file structure of the terraform configuration.
 
-\begin{figure}[htpb]
+
+\subsection{The modified architecture:}
+a slight modification made to the original architecture consists of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
+\\ the changes in the architecture are shown in figure \ref{fig:new_arch}.
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{file_structure.png}
-    \caption{The file structure}
-    \label{fig:file_structure}
+    \includegraphics[width=0.8\textwidth]{web_app_with_private_access_to_database_and_stroage_account.png}
+    \caption{The new architecture}
+    \label{fig:new_arch}
 \end{figure}
-To promote code reusability, maintainability, and clarity, we adopted a modular approach for our Terraform configuration. This involved structuring the code into distinct modules, each encapsulating a specific aspect of the infrastructure (e.g., web app, database, storage account). This approach allows us to manage and update each module independently, and to reuse them across different environments.
-\par
-Furthermore, to ensure consistency and streamline configuration changes, we grouped frequently used variables like SKU names, VNet prefixes, and subnet prefixes into a dedicated local.tf file.
-\par
-This combined approach of modular structure and centralized variable management promotes efficient and well-organized Terraform configuration, fostering long-term project maintainability and scalability.
-\section{Challenges:}
-\subsection*{ \textbullet\ The problem:}
+
+
+\section{Challenges}
+\subsection*{ \textbullet\ The problem}
 The main challenge we faced during Sprint 1 was configuring the DNS zones to enable communication between the web application and the database. Despite successfully provisioning the necessary cloud resources, the web application encountered issues resolving the hostname of the database. This meant the application couldn't locate the database to retrieve or store data, hindering core functionality. Troubleshooting involved verifying several aspects:
 
-\begin{figure}[htpb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{connnectivity_problem.png}
     \caption{connnectivity problem}
@@ -139,10 +107,10 @@ The main challenge we faced during Sprint 1 was configuring the DNS zones to ena
     \item \textbf{verify connections:} We had to verify that the database was accessible from the web application. and that the web could access the DNS server.
 \end{itemize}
 By systematically examining these potential causes, we were able to identify that the web app did not have access to the DNS server provided by Azure. This experience highlights the importance of careful configuration and understanding of how DNS plays a crucial role in enabling communication between different components within a cloud infrastructure.
-\subsection*{ \textbullet\ The solution:}
+\subsection*{ \textbullet\ The solution}
 To address the DNS resolution issue between the web application and the database, we capitalized on a core Azure concept: \textbf{the Wire Server}. This managed DNS server, automatically created within each virtual network, plays a critical role in resolving internal DNS queries using private DNS zones. Although offered as a free service, the Wire Server isn't automatically configured as the default DNS server for the virtual network.
 
-\begin{figure}[htpb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{DNS_server.png}
     \caption{The DNS configuration}
@@ -151,14 +119,14 @@ To address the DNS resolution issue between the web application and the database
 
 Our solution involved leveraging Terraform to explicitly set the Wire Server's static IP address (168.63.129.16) as the default DNS server within our virtual network configuration. By making this configuration change, we ensured that the web application could effectively utilize the Wire Server to resolve the database hostname and establish the necessary communication channel. This approach eliminated the initial DNS resolution obstacle and facilitated seamless communication between the application and the database.
 
-\section{Testing the connections:}
-\subsection*{ \textbullet\ The user to the application:}
+\section{Testing the connections}
+\subsection*{ \textbullet\ The user to the application}
 To test the connectivity between the web application and the user, I deployed a simple web application that displays a welcome message. We then accessed the web application using a web browser to verify that the application was accessible from the designated CIDR range in the development environment.
-\subsection*{ \textbullet\ The application to the database:}
+\subsection*{ \textbullet\ The application to the database}
 To test the connectivity between the web application and the database, I used the Azure Portal to verify that the web application could successfully communicate with the database. This involved checking the database connection status and ensuring that the web application could read and write data to the database.
-\subsection*{ \textbullet\ Integration testing:}
+\subsection*{ \textbullet\ Integration testing}
 To ensure that the web application and database could communicate effectively, I performed integration testing by simulating user interactions with the application. This involved submitting data through the web application and verifying that the data was correctly stored and retrieved from the database. By testing the end-to-end functionality of the application, I confirmed that the web application and database were successfully connected and operational.
-\begin{figure}[htpb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{integration_testing.png}
     \caption{the simple web app that was used to test the infrastructure.}
@@ -170,4 +138,4 @@ This chapter detailed the successful completion of Sprint 1, focusing on provisi
 \par
 We encountered a challenge during this sprint related to DNS configuration, where the web application struggled to resolve the database hostname. This issue was resolved by leveraging the Azure Wire Server as the default DNS server within the virtual network configuration.
 \par
-By successfully provisioning the infrastructure and addressing the DNS resolution challenge, Sprint 1 laid the foundation for future sprints to focus on building and deploying the web application and its functionalities.
+By successfully provisioning the infrastructure and addressing the DNS resolution challenge, Sprint 1 laid the foundation for future sprints to focus on building and deploying the web application and its functionalities within the cloud environment as will be detailed in the next chapter.

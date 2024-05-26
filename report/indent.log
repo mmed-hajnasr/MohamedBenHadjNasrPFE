@@ -1,0 +1,37 @@
+INFO:  latexindent.pl version 3.20.3, 2023-02-19, a script to indent .tex files
+       latexindent.pl lives here: /nix/store/2bhgwk9gsgp4kj73jwwnn7v8ib73mcmc-texlive-latexindent-3.20.3/scripts/latexindent/
+       Thu May 23 10:15:19 2024
+       Filename: /home/mmed/projects/MohamedBenHadjNasrPFE/report/tpl/__latexindent_temp_isipfe.cls
+INFO:  Processing switches:
+       -y|--yaml: YAML settings specified via command line
+       -c|--cruft: cruft directory
+INFO:  Directory for backup files and /home/mmed/projects/MohamedBenHadjNasrPFE/report//indent.log:
+       /home/mmed/projects/MohamedBenHadjNasrPFE/report/
+INFO:  Perl modules are being loaded from the following directories:
+       /nix/store/pr3vrpmskw6wxx75r5f5q6xs1qm7263i-perl-5.38.2/lib/perl5/5.38.2/FindBin.pm
+       /nix/store/gdwnkzgccq0i0vmahwd4b12i0mk1h9mb-perl-5.38.2-env/lib/perl5/site_perl/5.38.2/YAML/Tiny.pm
+       /nix/store/pr3vrpmskw6wxx75r5f5q6xs1qm7263i-perl-5.38.2/lib/perl5/5.38.2/File/Copy.pm
+       /nix/store/pr3vrpmskw6wxx75r5f5q6xs1qm7263i-perl-5.38.2/lib/perl5/5.38.2/File/Basename.pm
+       /nix/store/pr3vrpmskw6wxx75r5f5q6xs1qm7263i-perl-5.38.2/lib/perl5/5.38.2/Getopt/Long.pm
+       /nix/store/gdwnkzgccq0i0vmahwd4b12i0mk1h9mb-perl-5.38.2-env/lib/perl5/site_perl/5.38.2/File/HomeDir.pm
+INFO:  LatexIndent perl modules are being loaded from, for example:
+       /nix/store/2bhgwk9gsgp4kj73jwwnn7v8ib73mcmc-texlive-latexindent-3.20.3/scripts/latexindent/LatexIndent/Document.pm
+INFO:  YAML settings read: defaultSettings.yaml
+       Reading defaultSettings.yaml from /nix/store/2bhgwk9gsgp4kj73jwwnn7v8ib73mcmc-texlive-latexindent-3.20.3/scripts/latexindent/defaultSettings.yaml
+INFO:  YAML reading settings
+       Home directory is /home/mmed
+       latexindent.pl didn't find indentconfig.yaml or .indentconfig.yaml
+       see all possible locations: https://latexindentpl.readthedocs.io/en/latest/sec-appendices.html#indentconfig-options)
+INFO:  YAML settings read: -y switch
+       YAML setting: defaultIndent:'  '
+       single-quoted string found in -y switch: '  ', substitute to   
+       Updating mainSettings with defaultIndent:   
+INFO:  Phase 1: searching for objects
+INFO:  Phase 2: finding surrounding indentation
+INFO:  Phase 3: indenting objects
+INFO:  Phase 4: final indentation check
+INFO:  Output routine:
+       Not outputting to file; see -w and -o switches for more options.
+       --------------
+INFO:  Please direct all communication/issues to:
+        https://github.com/cmhughes/latexindent.pl

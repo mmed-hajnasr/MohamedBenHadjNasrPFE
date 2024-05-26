@@ -12,29 +12,29 @@ The first sprint of this project focused on provisioning the necessary cloud res
     \caption{Sprint 1 backlog}
     \label{tab:Sprint1_backlog}                                                                       \\
     \hline
-    Define the structure and variables for the web Terraform module.                     & (2 points) \\
+    Define the structure and variables for the web Terraform module.                     & (2 days) \\
     \hline
-    Define the structure and variables for the database Terraform module.                & (0 points) \\
+    Define the structure and variables for the database Terraform module.                & (1 days) \\
     \hline
-    Define the structure and variables for the storage account Terraform module.         & (1 points) \\
+    Define the structure and variables for the storage account Terraform module.         & (1 days) \\
     \hline
-    Develop Terraform code to provision a virtual network with subnets.                  & (4 points) \\
+    Develop Terraform code to provision a virtual network with subnets.                  & (4 days) \\
     \hline
-    Implement the DNS zones for each module and set up the connections between them.     & (2 points) \\
+    Implement the DNS zones for each module and set up the connections between them.     & (2 days) \\
     \hline
-    Configure security groups for resources in each module.                              & (2 points) \\
+    Configure security groups for resources in each module.                              & (2 days) \\
     \hline
-    implement the characteristics of the development environment.                        & (2 points) \\
+    implement the characteristics of the development environment.                        & (2 days) \\
     \hline
-    Define environment-specific variables for the rest of the environments: QA and prod. & (1 points) \\
+    Define environment-specific variables for the rest of the environments: QA and prod. & (1 days) \\
     \hline
-    Deploy a simple web application to test the infrastructure.                          & (2 points) \\
+    Deploy a simple web application to test the infrastructure.                          & (2 days) \\
     \hline
-    write the necessary documentation on how to use the different workspaces.            & (2 points) \\
+    write the necessary documentation on how to use the different workspaces.            & (2 days) \\
     \hline
-    Test connectivity between the web application and the database for each environment. & (1 point)  \\
+    Test connectivity between the web application and the database for each environment. & (1 day)  \\
     \hline
-    Configure the production environment for optimal performance.                        & (1 point)  \\
+    Configure the production environment for optimal performance.                        & (1 day)  \\
     \hline
 \end{longtable}
 
@@ -55,7 +55,7 @@ this figure \ref{fig:file_structure} shows the file structure of the terraform c
     \label{fig:file_structure}
 \end{figure}
 
-\subsection{the difference between the environments} 
+\subsection{The difference between the environments} 
 using the terraform workspaces to manage the different environments, we can define the differences between the environments.
 \begin{itemize}
     \item \textbf{dev:} the development environment:
@@ -78,7 +78,7 @@ using the terraform workspaces to manage the different environments, we can defi
 \end{itemize}
 
 
-\subsection{The modified architecture:}
+\subsection{The modified architecture}
 a slight modification made to the original architecture consists of the removal of the application gateway due to its high price so the user will just have to access the web app directly which is acceptable since we only have one web app.
 \\ the changes in the architecture are shown in figure \ref{fig:new_arch}.
 
